@@ -1,18 +1,18 @@
 #include <stdio.h>
+#include "includes/Area.h"
 #include "includes/image_ppm.h"
-#include "includes/AbstractArea.h"
 
 int main(int argc, char* argv[])
 {
   char cNomImgLue[250], cNomImgEcrite[250];
-  int nH, nW, nTaille;
-  
+  int nH=0, nW=0, nTaille;
+
   if (argc != 3) 
-     {
-       printf("Usage: ImageIn.pgm ImageOut.pgm \n"); 
-       exit (1) ;
-     }
-   
+  {
+    printf("Usage: ImageIn.pgm ImageOut.pgm \n"); 
+    exit (1) ;
+  }
+
   sscanf (argv[1],"%s",cNomImgLue) ;
   sscanf (argv[2],"%s",cNomImgEcrite);
   //sscanf (argv[3],"%d",&S);
@@ -25,25 +25,16 @@ int main(int argc, char* argv[])
   allocation_tableau(ImgIn, OCTET, nTaille);
   lire_image_pgm(cNomImgLue, ImgIn, nH * nW);
   allocation_tableau(ImgOut, OCTET, nTaille);
+  std::cout<<"nW = "<<nW<<std::endl;
+  std::cout<<"nH = "<<nH<<std::endl;
 
+  Area* a = new Area(ImgIn,nW,nH,0,0);
+  a->display();
 
- for (int i=1; i < nH-1; i++)
-   for (int j=1; j < nW-1; j++)
-     {
-       if ( ImgIn[i*nW+j]==255) 
-        {
-          // ImgOut[(i+1)*nW+j]=255;
-          // ImgOut[(i-1)*nW+j]=255;
-          // ImgOut[(i)*nW+(j+1)]=255;
-          // ImgOut[(i)*nW+(j-1)]=255;
-          // ImgOut[(i+1)*nW+(j+1)]=255;
-          // ImgOut[(i+1)*nW+(j-1)]=255;
-          // ImgOut[(i-1)*nW+(j+1)]=255;
-          // ImgOut[(i-1)*nW+(j-1)]=255;
-        }
-     }
-
-   ecrire_image_pgm(cNomImgEcrite, ImgOut,  nH, nW);
-   free(ImgIn);
-   return 1;
+  a->meanCompute();
+  std::cout<<"Mean of the area : "<<a->getMean();
+  ecrire_image_pgm(cNomImgEcrite, ImgOut,  nH, nW);
+  free(ImgIn);
+  
+  return 1;
 }

@@ -1,13 +1,5 @@
-
-#include <cmath>
-#include <iostream>
 #include "includes/AbstractArea.h"
 
-AbstractArea::AbstractArea() : x(0), y(0)
-{}
-
-AbstractArea::AbstractArea(int x, int y) : x(x), y(y)
-{}
 
 void AbstractArea::setX(int x)
 {
@@ -29,10 +21,17 @@ int AbstractArea::getY() const
     return this->y;
 } 
 
+int AbstractArea::getMean() const
+{
+    return this->mean;
+} 
+
 void AbstractArea::display() const
 {
     std::cout << "X = " << this->x << std::endl;
     std::cout << "Y = " << this->y << std::endl;
+    std::cout << "W = " << this->w << std::endl;
+    std::cout << "H = " << this->h << std::endl;
 }
 
 int AbstractArea::getNbSubArea() { // TODO
@@ -43,9 +42,18 @@ std::vector<AbstractArea>*  AbstractArea::getTabSubArea() { // TODO
     return NULL;
 }
 
-void AbstractArea::meanCompute() { // TODO
-
+void AbstractArea::meanCompute(OCTET* data) { // TODO
+	int temp = 0;
+	for(int i = 0; i<w; i++)
+	{
+		for(int j=0; j<h; j++)
+		{
+			temp+=data[i+j*w];
+		}
+	}
+	mean = temp/(w*h);
 }
-void AbstractArea::varianceCompute() { // TODO
 
+void AbstractArea::varianceCompute() { // TODO
+	;
 }
