@@ -15,10 +15,12 @@ class Area : public AbstractArea
   public:
     // Constructors
     Area();
+    Area(int w, int h, int x, int y);
     Area(OCTET* data, int w, int h, int x, int y);
-
+    ~Area();
     int getNbSubArea();
-    std::vector<AbstractArea>* getTabSubArea();
+    void getTabSubArea(OCTET* ImgOut);
+    void meanCorner(Area a, OCTET* ImgOut);
     void meanCompute();
     void varianceCompute();
 };

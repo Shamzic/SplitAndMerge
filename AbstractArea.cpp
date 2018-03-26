@@ -38,10 +38,12 @@ int AbstractArea::getNbSubArea() { // TODO
     return 0;
 }
 
-std::vector<AbstractArea>*  AbstractArea::getTabSubArea() { // TODO
+/*std::vector<AbstractArea>*  AbstractArea::getTabSubArea() { // TODO
     return NULL;
+}*/
+void  AbstractArea::getTabSubArea() { // TODO
+    ;
 }
-
 void AbstractArea::meanCompute(OCTET* data) { // TODO
 	int temp = 0;
 	for(int i = 0; i<w; i++)

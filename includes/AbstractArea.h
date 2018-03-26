@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include "image_ppm.h"
 
 typedef unsigned char OCTET;
 
@@ -12,6 +13,7 @@ class AbstractArea
   protected: 
     int x,y;
     int w,h;
+    int size;
     OCTET* data;
     double mean;
 
@@ -26,7 +28,9 @@ class AbstractArea
     // Other methods
     void display() const;
     virtual int getNbSubArea();
-    virtual std::vector<AbstractArea>* getTabSubArea();
+
+    /*virtual std::vector<AbstractArea>* getTabSubArea();*/
+    virtual void getTabSubArea();
 
     virtual void meanCompute(OCTET* data);
     virtual void varianceCompute();
