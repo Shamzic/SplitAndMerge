@@ -4,7 +4,7 @@ CFLAGS= -Werror -Wall
 all:  abstractarea area main
 	
 main:
-	g++ -Wall -o main -lstdc++ main.cpp Area.cpp AbstractArea.cpp $(CFLAGS)
+	g++ -g -Wall -o main -lstdc++ main.cpp Area.cpp AbstractArea.cpp $(CFLAGS)
 
 abstractarea:
 	g++ -Wall -c AbstractArea.cpp $(CFLAGS)

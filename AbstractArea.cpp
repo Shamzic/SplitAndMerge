@@ -1,6 +1,8 @@
 #include "includes/AbstractArea.h"
 
-
+ AbstractArea::~AbstractArea() {
+ 	free(data);
+ }
 void AbstractArea::setX(int x)
 {
     this->x = x;

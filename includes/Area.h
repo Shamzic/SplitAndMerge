@@ -10,7 +10,7 @@
 class Area : public AbstractArea
 {
   protected:
-    std::vector<AbstractArea>* subArea;
+    std::vector<AbstractArea*>* subArea;
 
   public:
     // Constructors
@@ -20,7 +20,7 @@ class Area : public AbstractArea
     ~Area();
     int getNbSubArea();
     void getTabSubArea(OCTET* ImgOut);
-    void meanCorner(Area a, OCTET* ImgOut);
+    void meanCorner(Area* a, OCTET* ImgOut);
     void meanCompute();
     void varianceCompute();
 };

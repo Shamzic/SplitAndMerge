@@ -25,11 +25,9 @@ int main(int argc, char* argv[])
   allocation_tableau(ImgIn, OCTET, nTaille);
   lire_image_pgm(cNomImgLue, ImgIn, nH * nW);
   allocation_tableau(ImgOut, OCTET, nTaille);
-/*  std::cout<<"nW = "<<nW<<std::endl;
-  std::cout<<"nH = "<<nH<<std::endl;
-*/
+
+
   Area* a = new Area(ImgIn,nW,nH,0,0);
-  //a->display();
 
   a->meanCompute();
   std::cout<<"Mean of the area : "<<a->getMean();

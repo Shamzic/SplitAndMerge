@@ -19,6 +19,7 @@ class AbstractArea
 
   public:
     //Accessors
+    virtual ~AbstractArea();
     void setX(int x);
     void setY(int y);
     int getX() const;
