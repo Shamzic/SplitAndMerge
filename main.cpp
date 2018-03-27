@@ -27,25 +27,11 @@ int main(int argc, char* argv[])
   allocation_tableau(ImgOut, OCTET, nTaille);
 
 
-  Area* a = new Area(ImgIn,nW,nH,0,0);
-
+  Area* a = new Area(ImgIn,nW,nH,0,0); // Total area image
   a->meanCompute();
   std::cout<<"Mean of the area : "<<a->getMean();
-  a->getTabSubArea(ImgOut);
 
-  // division quart image
-
-/*  OCTET* temp;
-  allocation_tableau(temp, OCTET, nTaille/4);
-  for(int i=0; i<nW/2; i++)
-  {
-    for(int j = 0; j<nH/2; j++)
-    {
-      temp [i+j*(nW/2)] = ImgIn[i+(nW/2)+(j+(nH/2))*nW];
-    }
-  }
-  ecrire_image_pgm(cNomImgEcrite, temp,  nH/2, nW/2);
-  free(temp);*/
+  a->getTabSubArea(ImgOut); // Division in 4 mean corner : OK
 
   ecrire_image_pgm(cNomImgEcrite, ImgOut,  nH, nW);
 

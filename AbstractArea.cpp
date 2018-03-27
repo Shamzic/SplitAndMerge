@@ -40,9 +40,7 @@ int AbstractArea::getNbSubArea() { // TODO
     return 0;
 }
 
-/*std::vector<AbstractArea>*  AbstractArea::getTabSubArea() { // TODO
-    return NULL;
-}*/
+
 void  AbstractArea::getTabSubArea() { // TODO
     ;
 }

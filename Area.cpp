@@ -58,15 +58,16 @@ void Area::getTabSubArea(OCTET* ImgOut) { // TODO
 	meanCorner(a, ImgOut);
 	delete(a);
 
+   // Upper right corner
 	for(int i=0; i<this->w/2; i++)
 		for(int j = 0; j<this->h/2; j++)
 			temp [i + j*(w/2)] = data[(i+(w/2))+j*w];
-
 	Area* b = new Area(temp, w/2, h/2, w/2, 0);	
 	subArea->push_back(b);
 	meanCorner(b, ImgOut);
 	delete(b);
 
+    // lower right corner
 	for(int i=0; i<this->w/2; i++)
 		for(int j = 0; j<this->h/2; j++)
 			temp [i + j*(w/2)] = data[(i+(w/2))+(j+(w/2))*w];
@@ -75,6 +76,7 @@ void Area::getTabSubArea(OCTET* ImgOut) { // TODO
 	meanCorner(c, ImgOut);
 	delete(c);
 
+	// lower left corner
 	for(int i=0; i<this->w/2; i++)
 		for(int j = 0; j<this->h/2; j++)
 			temp [i + j*(w/2)] = data[(i)+(j+(w/2))*w];
@@ -93,7 +95,7 @@ void Area::meanCorner(Area* a, OCTET* ImgOut) {
 }
 
 
-void Area::meanCompute() { // TODO
+void Area::meanCompute() {
 
 	int temp = 0;
 	for(int i = 0; i<this->w; i++)

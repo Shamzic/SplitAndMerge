@@ -19,7 +19,6 @@ class AbstractArea
 
   public:
     //Accessors
-    virtual ~AbstractArea();
     void setX(int x);
     void setY(int y);
     int getX() const;
@@ -29,10 +28,8 @@ class AbstractArea
     // Other methods
     void display() const;
     virtual int getNbSubArea();
-
-    /*virtual std::vector<AbstractArea>* getTabSubArea();*/
+    virtual ~AbstractArea();
     virtual void getTabSubArea();
-
     virtual void meanCompute(OCTET* data);
     virtual void varianceCompute();
 };
