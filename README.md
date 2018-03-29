@@ -1,9 +1,9 @@
- Projet de segmention de master 1 - IMAGINA
+# Projet de segmention de master 1 - IMAGINA
  
- * Compilation
+## Compilation
  
  <code> > make </code>
  
- * Exemple d'exécution
+## Exemple d'exécution
  
  <code> > ./main images/british.pgm results-images/test.pgm </code>
