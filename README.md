@@ -2,8 +2,8 @@
  
  * Compilation
  
- <code> make </code>
+ <code> > make </code>
  
  * Exemple d'exécution
  
- <code> ./main images/british.pgm results-images/test.pgm </code>
+ <code> > ./main images/british.pgm results-images/test.pgm </code>
