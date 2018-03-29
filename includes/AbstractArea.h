@@ -16,6 +16,7 @@ class AbstractArea
     int size;
     OCTET* data;
     double mean;
+    double variance;
 
   public:
     //Accessors
@@ -24,6 +25,7 @@ class AbstractArea
     int getX() const;
     int getY() const;
     int getMean() const;
+    int getVariance() const;
 
     // Other methods
     void display() const;

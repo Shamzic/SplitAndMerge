@@ -28,6 +28,11 @@ int AbstractArea::getMean() const
     return this->mean;
 } 
 
+int AbstractArea::getVariance() const
+{
+    return this->variance;
+} 
+
 void AbstractArea::display() const
 {
     std::cout << "X = " << this->x << std::endl;

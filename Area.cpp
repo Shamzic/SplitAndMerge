@@ -2,8 +2,14 @@
 
 Area::Area()
 {
+	this->w = w;
+	this->h = h;
 	this->x = 0;
 	this->y = 0;	
+	this->size = w*h;
+	this->subArea = NULL;
+	this->mean = 0;
+	this->variance = 0;
 }
 
 Area::Area(int w, int h, int x, int y) 
@@ -13,8 +19,10 @@ Area::Area(int w, int h, int x, int y)
 	this->size = w*h;
 	this->x = x;
 	this->y = y;
-	//this->data = data;
+	this->data = NULL;
 	this->subArea = new std::vector<AbstractArea*>();
+	this->mean = 0;
+	this->variance = 0;
 }
 
 
@@ -25,12 +33,13 @@ Area::Area(OCTET* data, int w, int h, int x, int y)
 	this->size = w*h;
 	this->x = x;
 	this->y = y;
-	//this->data = data;
 	allocation_tableau(this->data, OCTET, this->size);
 	for(int i = 0; i<this->w; i++)
 		for(int j = 0; j<this->h; j++)
 			this->data[i+j*w] = data[i+j*w];
 	this->subArea = new std::vector<AbstractArea*>();
+	this->mean = 0;
+	this->variance = 0;
 }
 
 Area::~Area()
@@ -88,7 +97,9 @@ void Area::getTabSubArea(OCTET* ImgOut) { // TODO
 
 void Area::meanCorner(Area* a, OCTET* ImgOut) {
 	a->meanCompute();
-	std::cout<<"mean corner = "<<a->getMean();
+	std::cout<<"mean corner = "<<a->getMean()<<std::endl;
+	a->varianceCompute();
+	std::cout<<"variance corner = "<<a->getVariance()<<std::endl;
 	for(int i = a->x ; i < a->x + a->w; i++)
 		for(int j = a->y; j< a->y + a->h; j++)
 			ImgOut[i + j*w] = a->mean;
@@ -105,9 +116,19 @@ void Area::meanCompute() {
 			temp+=this->data[i+j*this->w];
 		}
 	}
-	this->mean = (double)( (double)temp/(double)(this->w*this->h));
+	this->mean = (double)( (double)temp/(double)(this->size));
 }
 
-void Area::varianceCompute() { // TODO
-	;
+void Area::varianceCompute() {
+	this->meanCompute();
+	int temp = 0;
+	for(int i = 0; i<this->w; i++)
+	{
+		for(int j=0; j<this->h; j++)
+		{
+			temp += (this->data[i+j*this->w] - (this->mean)) * (this->data[i+j*this->w] - (this->mean)) ;
+		}
+	}
+	//std::cout<<"(this->data[10+10*this->w] - (this->mean) : "<<(double)this->data[10+10*this->w] <<" - "<< (this->mean)<<std::endl;
+	this->variance = (double)( (double)temp/(double)((this->size)));
 }

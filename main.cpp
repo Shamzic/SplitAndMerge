@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 
   Area* a = new Area(ImgIn,nW,nH,0,0); // Total area image
   a->meanCompute();
-  std::cout<<"Mean of the area : "<<a->getMean();
+  std::cout<<"Mean of the image : "<<a->getMean()<<std::endl;
 
   a->getTabSubArea(ImgOut); // Division in 4 mean corner : OK
 
