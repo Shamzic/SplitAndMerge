@@ -1,16 +1,18 @@
 
 CFLAGS= -Werror -Wall
 
-all:  abstractarea area main
+all:   main #abstractarea area
 	
 main:
-	g++ -g -Wall -o main -lstdc++ main.cpp Area.cpp AbstractArea.cpp $(CFLAGS)
+	g++ -g -Wall -o main -lstdc++ main.cpp Area.cpp AbstractArea.cpp LeafArea.cpp $(CFLAGS)
 
-abstractarea:
-	g++ -Wall -c AbstractArea.cpp $(CFLAGS)
+# abstractarea:
+# 	g++ -Wall -c AbstractArea.cpp $(CFLAGS)
 
-area:
-	g++ -Wall -c Area.cpp $(CFLAGS)
+# area:
+# 	g++ -Wall -c Area.cpp $(CFLAGS)
+
+
 
 clean: 
 	rm -f *~

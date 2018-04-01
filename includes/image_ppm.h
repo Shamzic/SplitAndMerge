@@ -221,3 +221,8 @@ inline void lire_image_pgm(char  nom_image[], OCTET *pt_image, int taille_image)
       }
 }
 /*===========================================================================*/
+
+int getIndex(int w , int i , int j)
+{
+   return (i * w) + j ; 
+}

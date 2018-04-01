@@ -1,45 +1,17 @@
 #include "includes/Area.h"
-
+#include "includes/LeafArea.h"
 Area::Area()
 {
-	this->w = w;
-	this->h = h;
-	this->x = 0;
-	this->y = 0;	
-	this->size = w*h;
 	this->subArea = NULL;
-	this->mean = 0;
-	this->variance = 0;
-}
-
-Area::Area(int w, int h, int x, int y) 
-{
-	this->w = w;
-	this->h = h;
-	this->size = w*h;
-	this->x = x;
-	this->y = y;
-	this->data = NULL;
-	this->subArea = new std::vector<AbstractArea*>();
-	this->mean = 0;
-	this->variance = 0;
 }
 
 
-Area::Area(OCTET* data, int w, int h, int x, int y) 
+Area::Area(OCTET* data, int w, int h, int x, int y) : AbstractArea(data,w,h,x,y)
 {
-	this->w = w;
-	this->h = h;
-	this->size = w*h;
-	this->x = x;
-	this->y = y;
-	allocation_tableau(this->data, OCTET, this->size);
-	for(int i = 0; i<this->w; i++)
-		for(int j = 0; j<this->h; j++)
-			this->data[i+j*w] = data[i+j*w];
+	
 	this->subArea = new std::vector<AbstractArea*>();
-	this->mean = 0;
-	this->variance = 0;
+	
+	
 }
 
 Area::~Area()
@@ -106,29 +78,47 @@ void Area::meanCorner(Area* a, OCTET* ImgOut) {
 }
 
 
-void Area::meanCompute() {
+void Area::split(int seuil)
+{
 
-	int temp = 0;
-	for(int i = 0; i<this->w; i++)
+	if(w>=2 && h>=2 && !this->isHomogeneousArea( w/2, h/2, 0, 0))
 	{
-		for(int j=0; j<this->h; j++)
-		{
-			temp+=this->data[i+j*this->w];
-		}
+		subArea->push_back(new Area(data, w/2, h/2, 0, 0));
 	}
-	this->mean = (double)( (double)temp/(double)(this->size));
-}
+	else
+	{
+		subArea->push_back(new LeafArea(data, w/2>0? w/2 : 1, h/2>0? h/2 : 1, 0, 0));	
+	}
 
-void Area::varianceCompute() {
-	this->meanCompute();
-	int temp = 0;
-	for(int i = 0; i<this->w; i++)
+
+	if(w>=2 && h>=2 && !this->isHomogeneousArea( w/2, h/2, w/2, 0))
 	{
-		for(int j=0; j<this->h; j++)
-		{
-			temp += (this->data[i+j*this->w] - (this->mean)) * (this->data[i+j*this->w] - (this->mean)) ;
-		}
+		subArea->push_back(new Area(data, w/2, h/2, w/2, 0));
 	}
-	//std::cout<<"(this->data[10+10*this->w] - (this->mean) : "<<(double)this->data[10+10*this->w] <<" - "<< (this->mean)<<std::endl;
-	this->variance = (double)( (double)temp/(double)((this->size)));
+	else
+	{
+		subArea->push_back(new LeafArea(data, w/2>0? w/2 : 1, h/2>0? h/2 : 1, w/2, 0));	
+	}
+
+
+	if(w>=2 && h>=2 && !this->isHomogeneousArea( w/2, h/2, w/2, h/2))
+	{
+		subArea->push_back(new Area(data, w/2, h/2, w/2, h/2));
+	}	
+	else
+	{
+		subArea->push_back(new LeafArea(data, w/2>0? w/2 : 1, h/2>0? h/2 : 1, w/2, h/2));
+	}
+
+
+	if(w>=2 && h>=2 && !this->isHomogeneousArea( w/2, h/2, 0, h/2))
+	{
+		subArea->push_back(new Area(data, w/2, h/2, 0, h/2));
+	}	
+	else
+	{
+		subArea->push_back(new LeafArea(data, w/2>0? w/2 : 1, h/2>0? h/2 : 1, 0, h/2));
+	}
+	
+
 }

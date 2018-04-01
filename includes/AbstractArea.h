@@ -17,8 +17,9 @@ class AbstractArea
     OCTET* data;
     double mean;
     double variance;
-
+    double standardDeviation;
   public:
+
     //Accessors
     void setX(int x);
     void setY(int y);
@@ -26,14 +27,30 @@ class AbstractArea
     int getY() const;
     int getMean() const;
     int getVariance() const;
+    int getStandardDeviation() const;
+    virtual int getW() const;
+    virtual int getH() const;
+    virtual int setW(int w);
+    virtual int setH(int h);
 
     // Other methods
     void display() const;
-    virtual int getNbSubArea();
+    
+    AbstractArea();
+    AbstractArea(OCTET* data , int w, int h, int x, int y);
     virtual ~AbstractArea();
+    
+    virtual int getNbSubArea();
     virtual void getTabSubArea();
+    
     virtual void meanCompute(OCTET* data);
+    virtual void meanCompute();
     virtual void varianceCompute();
+    virtual void standardDeviationCompute();
+    
+    virtual bool isHomogeneousArea(int w , int h , int x , int y);
+    virtual void split(int seuil)=0;
+    
 };
 
 #endif
