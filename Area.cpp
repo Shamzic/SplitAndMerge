@@ -78,45 +78,27 @@ void Area::meanCorner(Area* a, OCTET* ImgOut) {
 
 void Area::split(int seuil)
 {
+	int areas_info[4][4]=
+	{
+		{w/2, h/2, 0, 0},
+		{w/2, h/2, w/2, 0},
+		{w/2, h/2, w/2, h/2},
+		{w/2, h/2, 0, h/2}
+	};
 	
-	if(w>=2 && h>=2 && !this->isHomogeneousArea( w/2, h/2, 0, 0))
+	for (int i = 0 ; i < 4 ; i++)
 	{
-		subArea->push_back(new Area(data, w/2, h/2, 0, 0));
+		if(w>=2 && h>=2 && !this->isHomogeneousArea( areas_info[i][0], areas_info[i][1], areas_info[i][2], areas_info[i][3]))
+		{
+			subArea->push_back(new Area(data, areas_info[i][0], areas_info[i][1], areas_info[i][2], areas_info[i][3]));
+		}
+		else
+		{
+			subArea->push_back(new LeafArea(data, 
+				areas_info[i][0]>0? areas_info[i][0] : 1, 
+				areas_info[i][1]>0? areas_info[i][1] : 1, 
+				areas_info[i][2], 
+				areas_info[i][3]));	
+		}	
 	}
-	else
-	{
-		subArea->push_back(new LeafArea(data, w/2>0? w/2 : 1, h/2>0? h/2 : 1, 0, 0));	
-	}
-
-
-	if(w>=2 && h>=2 && !this->isHomogeneousArea( w/2, h/2, w/2, 0))
-	{
-		subArea->push_back(new Area(data, w/2, h/2, w/2, 0));
-	}
-	else
-	{
-		subArea->push_back(new LeafArea(data, w/2>0? w/2 : 1, h/2>0? h/2 : 1, w/2, 0));	
-	}
-
-
-	if(w>=2 && h>=2 && !this->isHomogeneousArea( w/2, h/2, w/2, h/2))
-	{
-		subArea->push_back(new Area(data, w/2, h/2, w/2, h/2));
-	}	
-	else
-	{
-		subArea->push_back(new LeafArea(data, w/2>0? w/2 : 1, h/2>0? h/2 : 1, w/2, h/2));
-	}
-
-
-	if(w>=2 && h>=2 && !this->isHomogeneousArea( w/2, h/2, 0, h/2))
-	{
-		subArea->push_back(new Area(data, w/2, h/2, 0, h/2));
-	}	
-	else
-	{
-		subArea->push_back(new LeafArea(data, w/2>0? w/2 : 1, h/2>0? h/2 : 1, 0, h/2));
-	}
-	
-
 }
