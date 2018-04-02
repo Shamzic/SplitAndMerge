@@ -1,5 +1,6 @@
 #include "includes/Area.h"
 #include "includes/LeafArea.h"
+#include "includes/image_ppm.h"
 Area::Area()
 {
 	this->subArea = NULL;
@@ -8,10 +9,7 @@ Area::Area()
 
 Area::Area(OCTET* data, int w, int h, int x, int y) : AbstractArea(data,w,h,x,y)
 {
-	
-	this->subArea = new std::vector<AbstractArea*>();
-	
-	
+	this->subArea = new std::vector<AbstractArea*>();	
 }
 
 Area::~Area()
@@ -80,7 +78,7 @@ void Area::meanCorner(Area* a, OCTET* ImgOut) {
 
 void Area::split(int seuil)
 {
-
+	
 	if(w>=2 && h>=2 && !this->isHomogeneousArea( w/2, h/2, 0, 0))
 	{
 		subArea->push_back(new Area(data, w/2, h/2, 0, 0));

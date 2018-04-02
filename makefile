@@ -1,22 +1,19 @@
+CC=g++ 
+CFLAGS= -g -Wall
+LDFLAGS=
+LIBS = 
 
-CFLAGS= -Werror -Wall
+MAIN_O = LeafArea.o Area.o AbstractArea.o image_ppm.o main.o
+all:   main
 
-all:   main #abstractarea area
-	
-main:
-	g++ -g -Wall -o main -lstdc++ main.cpp Area.cpp AbstractArea.cpp LeafArea.cpp $(CFLAGS)
+%.o:%.cpp
+	$(CC) $(CFLAGS) -c -o $(LDFLAGS) $@ $< $(LIBS)
 
-# abstractarea:
-# 	g++ -Wall -c AbstractArea.cpp $(CFLAGS)
-
-# area:
-# 	g++ -Wall -c Area.cpp $(CFLAGS)
-
+main: $(MAIN_O)
+	g++ $(CFLAGS) $^ -o $@
 
 
 clean: 
-	rm -f *~
+	rm -f *.o
 	rm -f *.dat
-	rm -f main
-	rm -f abstractarea
-	rm -f area
+	

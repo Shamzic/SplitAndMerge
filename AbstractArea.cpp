@@ -19,7 +19,7 @@ AbstractArea::AbstractArea(OCTET * data , int w, int h, int x, int y)
     this->size = w*h;
     this->x = x;
     this->y = y;
-    this->data = data
+    this->data = data;
     this->mean = 0;
     this->variance = 0;
 }

@@ -1,4 +1,4 @@
-#ifndef __AREA_H__
+#ifndef __LEAFAREA_H__
 #define __LEAFAREA_H__
 
 #include <iostream>
@@ -12,7 +12,6 @@ class LeafArea : public AbstractArea
   public:
     // Constructors
     LeafArea();
-    LeafArea(int w , int h , int x, int y);
     LeafArea(OCTET* data , int w , int h , int x, int y);
     ~LeafArea();
     virtual void split(int seuil);
