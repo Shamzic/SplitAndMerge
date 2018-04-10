@@ -33,7 +33,6 @@ void Area::getTabSubArea(OCTET* ImgOut) { // TODO
 	subArea->push_back(a);
 
 	meanCorner(a, ImgOut);
-	delete(a);
 
    // Upper right corner
 	for(int i=0; i<this->w/2; i++)
@@ -42,7 +41,6 @@ void Area::getTabSubArea(OCTET* ImgOut) { // TODO
 	Area* b = new Area(temp, w/2, h/2, w/2, 0);	
 	subArea->push_back(b);
 	meanCorner(b, ImgOut);
-	delete(b);
 
     // lower right corner
 	for(int i=0; i<this->w/2; i++)
@@ -51,7 +49,6 @@ void Area::getTabSubArea(OCTET* ImgOut) { // TODO
 	Area* c = new Area(temp, w/2, h/2, w/2, h/2);	
 	subArea->push_back(c);
 	meanCorner(c, ImgOut);
-	delete(c);
 
 	// lower left corner
 	for(int i=0; i<this->w/2; i++)
@@ -60,7 +57,6 @@ void Area::getTabSubArea(OCTET* ImgOut) { // TODO
 	Area* d = new Area(temp, w/2, h/2, 0, h/2);	
 	subArea->push_back(d);
 	meanCorner(d, ImgOut);
-	delete(d);
 }
 
 void Area::meanCorner(Area* a, OCTET* ImgOut) {

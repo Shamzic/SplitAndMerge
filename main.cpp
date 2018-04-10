@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
   sscanf (argv[2],"%s",cNomImgEcrite);
   //sscanf (argv[3],"%d",&S);
 
-  OCTET *ImgIn, *ImgOut;
+  OCTET *ImgIn, *ImgOut, * imgTest;
 
   lire_nb_lignes_colonnes_image_pgm(cNomImgLue, &nH, &nW);
   nTaille = nH * nW;
@@ -29,19 +29,14 @@ int main(int argc, char* argv[])
   allocation_tableau(ImgIn, OCTET, nTaille);
   lire_image_pgm(cNomImgLue, ImgIn, nH * nW);
   allocation_tableau(ImgOut, OCTET, nTaille);
-
-
-  // Area* a = new Area(ImgIn,nW,nH,0,0); // Total area image
-  // a->meanCompute();
-  // std::cout<<"Mean of the image : "<<a->getMean()<<std::endl;
-
-  // a->getTabSubArea(ImgOut); // Division in 4 mean corner : OK
-
-  // ecrire_image_pgm(cNomImgEcrite, ImgOut,  nH, nW);
-
-  
-  OCTET * imgTest;
   allocation_tableau(imgTest , OCTET , 16)  ;
+
+  Area* a = new Area(ImgIn,nW,nH,0,0); // Total area image
+  a->meanCompute();
+  std::cout<<"Mean of the image : "<<a->getMean()<<std::endl;
+  a->getTabSubArea(ImgOut); // Division in 4 mean corner : OK
+  ecrire_image_pgm(cNomImgEcrite, ImgOut,  nH, nW);
+
   imgTest[0] =1 ; imgTest[1] =1 ; imgTest[2] =1 ; imgTest[3] =2 ;
   imgTest[4] =1 ; imgTest[5] =2 ; imgTest[6] =4 ; imgTest[7] =7 ;
   imgTest[8] =7 ; imgTest[9] =6 ; imgTest[10]=2 ; imgTest[11]=3 ; 
