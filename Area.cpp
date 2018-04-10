@@ -1,11 +1,9 @@
 #include "includes/Area.h"
-#include "includes/LeafArea.h"
-#include "includes/image_ppm.h"
+using namespace std;
 Area::Area()
 {
 	this->subArea = NULL;
 }
-
 
 Area::Area(OCTET* data, int w, int h, int x, int y) : AbstractArea(data,w,h,x,y)
 {
@@ -14,9 +12,8 @@ Area::Area(OCTET* data, int w, int h, int x, int y) : AbstractArea(data,w,h,x,y)
 
 Area::~Area()
 {
-	delete(subArea);
+		
 }
-
 
 int Area::getNbSubArea() { // TODO
     return 0;
@@ -34,6 +31,7 @@ void Area::getTabSubArea(OCTET* ImgOut) { // TODO
 			temp [i + j*(w/2)] = data[i+j*w];
 	Area* a = new Area(temp, w/2, h/2, 0, 0);
 	subArea->push_back(a);
+
 	meanCorner(a, ImgOut);
 	delete(a);
 
@@ -75,8 +73,21 @@ void Area::meanCorner(Area* a, OCTET* ImgOut) {
 			ImgOut[i + j*w] = a->mean;
 }
 
+void Area::showArea()
+{
+	cout<<"=====>"<<endl;
+	for(int i = this->getI() ; i < this->getH() ; i++)
+	{
+		for(int j = this->getJ() ; j < this->getW() ; j++)
+		{
+			cout<<setw(5)<<(int)data[getIndex(this->getW() , this->getI() , this->getJ())];
+		}
+		cout <<endl;
+	}
+	cout<<"=====>"<<endl;
+}
 
-void Area::split(int seuil)
+void Area::split()
 {
 	int areas_info[4][4]=
 	{
@@ -85,20 +96,27 @@ void Area::split(int seuil)
 		{w/2, h/2, w/2, h/2},
 		{w/2, h/2, 0, h/2}
 	};
-	
-	for (int i = 0 ; i < 4 ; i++)
+
+	this->showArea();
+	if(this->getW() > 1 && this->getH() > 1 && !this->isHomogeneousArea())
 	{
-		if(w>=2 && h>=2 && !this->isHomogeneousArea( areas_info[i][0], areas_info[i][1], areas_info[i][2], areas_info[i][3]))
+		cout<<"not homogeneous area"<<endl<<endl;
+
+		for (int i = 0 ; i < 4 ; i++)
 		{
 			subArea->push_back(new Area(data, areas_info[i][0], areas_info[i][1], areas_info[i][2], areas_info[i][3]));
 		}
-		else
+		for(int i = 0 ; i < 4 ; i ++)
 		{
-			subArea->push_back(new LeafArea(data, 
-				areas_info[i][0]>0? areas_info[i][0] : 1, 
-				areas_info[i][1]>0? areas_info[i][1] : 1, 
-				areas_info[i][2], 
-				areas_info[i][3]));	
-		}	
+			subArea->at(i)->split();
+		}
+	}
+	else if(this->getW() > 1 && this->getH() > 1)
+	{
+		cout<<"homogenous area"<<endl;
+	}
+	else
+	{
+		cout<<"small area"<<endl;
 	}
 }

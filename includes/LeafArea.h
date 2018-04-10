@@ -14,7 +14,7 @@ class LeafArea : public AbstractArea
     LeafArea();
     LeafArea(OCTET* data , int w , int h , int x, int y);
     ~LeafArea();
-    virtual void split(int seuil);
+    virtual void split();
 
 };
 

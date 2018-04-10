@@ -1,5 +1,9 @@
 #include <stdio.h>
+#include <iostream>
 #include "includes/Area.h"
+
+using namespace std;
+
 
 
 int main(int argc, char* argv[])
@@ -27,15 +31,26 @@ int main(int argc, char* argv[])
   allocation_tableau(ImgOut, OCTET, nTaille);
 
 
-  Area* a = new Area(ImgIn,nW,nH,0,0); // Total area image
-  a->meanCompute();
-  std::cout<<"Mean of the image : "<<a->getMean()<<std::endl;
+  // Area* a = new Area(ImgIn,nW,nH,0,0); // Total area image
+  // a->meanCompute();
+  // std::cout<<"Mean of the image : "<<a->getMean()<<std::endl;
 
-  a->getTabSubArea(ImgOut); // Division in 4 mean corner : OK
+  // a->getTabSubArea(ImgOut); // Division in 4 mean corner : OK
 
-  ecrire_image_pgm(cNomImgEcrite, ImgOut,  nH, nW);
+  // ecrire_image_pgm(cNomImgEcrite, ImgOut,  nH, nW);
 
-  a->~Area();
+  
+  OCTET * imgTest;
+  allocation_tableau(imgTest , OCTET , 16)  ;
+  imgTest[0] =1 ; imgTest[1] =1 ; imgTest[2] =1 ; imgTest[3] =2 ;
+  imgTest[4] =1 ; imgTest[5] =2 ; imgTest[6] =4 ; imgTest[7] =7 ;
+  imgTest[8] =7 ; imgTest[9] =6 ; imgTest[10]=2 ; imgTest[11]=3 ; 
+  imgTest[12]=4 ; imgTest[13]=5 ; imgTest[14]=6 ; imgTest[15]=1 ;
+  Area* a_split_test = new Area(imgTest,4,4,0,0); // Total area image
+  
+  a_split_test->split();
+
+  cout<<"end split"<<endl;
   free(ImgIn);
   
   return 1;

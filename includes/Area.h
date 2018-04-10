@@ -5,6 +5,9 @@
 #include <vector>
 #include <cmath>
 #include "AbstractArea.h"
+#include "image_ppm.h"
+#include <iostream>
+#include <iomanip>
 
 
 class Area : public AbstractArea
@@ -20,8 +23,8 @@ class Area : public AbstractArea
     int getNbSubArea();
     void getTabSubArea(OCTET* ImgOut);
     void meanCorner(Area* a, OCTET* ImgOut);
-    
-    virtual void split(int seuil);
+    void showArea();
+    virtual void split();
 };
 
 #endif

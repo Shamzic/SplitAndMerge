@@ -3,7 +3,7 @@ CFLAGS= -g -Wall
 LDFLAGS=
 LIBS = 
 
-MAIN_O = LeafArea.o Area.o AbstractArea.o image_ppm.o main.o
+MAIN_O = Area.o AbstractArea.o image_ppm.o main.o
 all:   main
 
 %.o:%.cpp

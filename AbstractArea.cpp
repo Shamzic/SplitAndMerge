@@ -47,6 +47,16 @@ int AbstractArea::getY() const
     return this->y;
 } 
 
+int AbstractArea::getI() const
+{
+    return this->y;
+}
+
+int AbstractArea::getJ() const
+{
+    return this->x;
+}
+
 int AbstractArea::getW() const
 {
     return this->w;
@@ -142,16 +152,16 @@ void AbstractArea::standardDeviationCompute(){
 }
 
 
-bool AbstractArea::isHomogeneousArea(int w , int h , int x , int y)
+bool AbstractArea::isHomogeneousArea()
 {
     
-    for(int i = x ; i < x + w; i++)
+    for(int i = this->getX() ; i < this->getX() + this->getW(); i++)
     {   
-        for(int j = y; j< y + h; j++)
+        for(int j = this->getY(); j< this->getY() + this->getH(); j++)
         {
-            if(!((data[getIndex(w , i , j)] < this->getMean() + this->getStandardDeviation()) + 1
-                && 
-                ( data[getIndex(w , i , j)] > this->getMean() + this->getStandardDeviation()) - 1) )
+            if(!((data[getIndex(this->getW() , i , j)] < this->getMean() + this->getStandardDeviation()) + 1
+                || 
+                ( data[getIndex(this->getW() , i , j)] > this->getMean() - this->getStandardDeviation()) - 1) )
             {
                 return false;
             }

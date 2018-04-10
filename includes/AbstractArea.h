@@ -28,8 +28,12 @@ class AbstractArea
     int getMean() const;
     int getVariance() const;
     int getStandardDeviation() const;
+    virtual int getI() const;
+    virtual int getJ() const;
+
     virtual int getW() const;
     virtual int getH() const;
+    
     virtual int setW(int w);
     virtual int setH(int h);
 
@@ -48,8 +52,8 @@ class AbstractArea
     virtual void varianceCompute();
     virtual void standardDeviationCompute();
     
-    virtual bool isHomogeneousArea(int w , int h , int x , int y);
-    virtual void split(int seuil)=0;
+    virtual bool isHomogeneousArea();
+    virtual void split()=0;
     
 };
 
