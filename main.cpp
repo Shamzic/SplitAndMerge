@@ -54,6 +54,9 @@ int main(int argc, char* argv[])
   // }
 
   Area* a_split_test = new Area(imgTest,4,4,0,0); // Total area image
+  a_split_test->showArea();
+  a_split_test->conv1Dvers2D();
+  a_split_test->showArea2D();
   // a_split_test->showArea();
   a_split_test->meanCompute() ;
   cout<<(float)a_split_test->getMean();
@@ -68,7 +71,6 @@ int main(int argc, char* argv[])
   }
 
   a_split_test->split();
-
   cout<<"end split"<<endl;
   free(ImgIn);
   

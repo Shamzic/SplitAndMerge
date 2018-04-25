@@ -1,5 +1,6 @@
 #include "includes/AbstractArea.h"
 
+
 AbstractArea::AbstractArea()
 {
     this->w = w;
@@ -22,6 +23,11 @@ AbstractArea::AbstractArea(OCTET * data , int w, int h, int x, int y)
     this->data = data;
     this->mean = 0;
     this->variance = 0;
+    this->data2D = new OCTET*[h];
+    for(int i =0 ; i < w ; i++)
+    {
+        this->data2D[i]= new OCTET[h];
+    } 
 
 }
 
@@ -41,6 +47,20 @@ void AbstractArea::showArea()
     cout<<"=====>"<<endl;
 }
 
+void AbstractArea::showArea2D()
+{
+    cout<<"=====>"<<endl;
+    for(int i = this->getI() ; i <this->getI() + this->getH() ; i++)
+    {
+        for(int j = this->getJ() ; j < this->getJ() + this->getW() ; j++)
+        {
+
+            cout<<setw(10)<< i <<","<< j<<"="<<(int)data2D[i][j]<< " ";;
+        }
+        cout <<endl;
+    }
+    cout<<"=====>"<<endl;   
+}
 
 AbstractArea::~AbstractArea() {
  	free(data);
@@ -189,3 +209,20 @@ bool AbstractArea::isHomogeneousArea()
     }
     return true;
 }
+
+
+void AbstractArea::conv1Dvers2D()
+{
+    for(int i1 =0; i1 < h ; i1++)
+    {
+        for(int j1 = 0 ; j1 < w ; j1++ )
+        {
+            data2D[i1][j1] = data[getIndex(w,i1,j1)];
+            
+        }
+
+        
+    } 
+}
+
+
