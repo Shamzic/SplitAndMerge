@@ -8,6 +8,12 @@ Area::Area()
 Area::Area(OCTET* data, int w, int h, int x, int y) : AbstractArea(data,w,h,x,y)
 {
 	this->subArea = new std::vector<AbstractArea*>();	
+	
+}
+
+Area::Area(OCTET** data2D , int w , int h , int x , int y) : AbstracArea(data2D,w,h,x,y)
+{
+	this->subArea= new std::vector<AbstracArea*>();
 }
 
 Area::~Area()
@@ -68,29 +74,15 @@ void Area::meanCorner(Area* a, OCTET* ImgOut) {
 		for(int j = a->y; j< a->y + a->h; j++)
 			ImgOut[i + j*w] = a->mean;
 }
-
-void Area::showArea()
-{
-	cout<<"=====>"<<endl;
-	for(int i = this->getI() ; i < this->getH() ; i++)
-	{
-		for(int j = this->getJ() ; j < this->getW() ; j++)
-		{
-			cout<<setw(5)<<(int)data[getIndex(this->getW() , this->getI() , this->getJ())];
-		}
-		cout <<endl;
-	}
-	cout<<"=====>"<<endl;
-}
-
+ 
 void Area::split()
 {
 	int areas_info[4][4]=
 	{
-		{w/2, h/2, 0, 0},
+		{w/2, h/2, 0  , 0},
 		{w/2, h/2, w/2, 0},
 		{w/2, h/2, w/2, h/2},
-		{w/2, h/2, 0, h/2}
+		{w/2, h/2, 0  , h/2}
 	};
 
 	this->showArea();
@@ -100,7 +92,11 @@ void Area::split()
 
 		for (int i = 0 ; i < 4 ; i++)
 		{
-			subArea->push_back(new Area(data, areas_info[i][0], areas_info[i][1], areas_info[i][2], areas_info[i][3]));
+			subArea->push_back(new Area(data, 
+				areas_info[i][0], 
+				areas_info[i][1], 
+				areas_info[i][2], 
+				areas_info[i][3]));
 		}
 		for(int i = 0 ; i < 4 ; i ++)
 		{

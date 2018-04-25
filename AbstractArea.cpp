@@ -22,7 +22,25 @@ AbstractArea::AbstractArea(OCTET * data , int w, int h, int x, int y)
     this->data = data;
     this->mean = 0;
     this->variance = 0;
+
 }
+
+
+void AbstractArea::showArea()
+{
+    cout<<"=====>"<<endl;
+    for(int i = this->getI() ; i <this->getI() + this->getH() ; i++)
+    {
+        for(int j = this->getJ() ; j < this->getJ() + this->getW() ; j++)
+        {
+
+            cout<<setw(10)<<getIndex(this->getW(), i , j)<<"="<<(int)data[getIndex(this->getW() , i , j)];
+        }
+        cout <<endl;
+    }
+    cout<<"=====>"<<endl;
+}
+
 
 AbstractArea::~AbstractArea() {
  	free(data);
@@ -77,17 +95,17 @@ int AbstractArea::setH(int h)
     return this->h=h;
 }  
 
-int AbstractArea::getMean() const
+float AbstractArea::getMean() const
 {
     return this->mean;
 } 
 
-int AbstractArea::getVariance() const
+float AbstractArea::getVariance() const
 {
     return this->variance;
 } 
 
-int AbstractArea::getStandardDeviation() const
+float AbstractArea::getStandardDeviation() const
 {
     return this->standardDeviation;
 }
@@ -109,7 +127,7 @@ void  AbstractArea::getTabSubArea() { // TODO
     ;
 }
 void AbstractArea::meanCompute(OCTET* data) { // TODO
-	int temp = 0;
+	float temp = 0.0;
 	for(int i = 0; i<w; i++)
 	{
 		for(int j=0; j<h; j++)
@@ -122,46 +140,47 @@ void AbstractArea::meanCompute(OCTET* data) { // TODO
 
 void AbstractArea::meanCompute() {
 
-    int temp = 0;
+    float temp = 0.0;
     for(int i = this->getX() ; i < this->getX() + this->getW(); i++)
     {   
         for(int j = this->getY(); j< this->getY() + this->getH(); j++)
         {
-            temp+=this->data[i+j*this->w];
+        
+            temp+=(float)this->data[i+j*this->w];
         }
     }
-    this->mean = (double)( (double)temp/(double)(this->size));
+    this->mean = (float)( (float)temp/(float)(this->size));
 }
 
 void AbstractArea::varianceCompute() {
-    this->meanCompute();
-    int temp = 0;
+    
+    float temp = 0.0;
     for(int i = this->getX() ; i < this->getX() + this->getW(); i++)
     {   
         for(int j = this->getY(); j< this->getY() + this->getH(); j++)
         {
-            temp += (this->data[i+j*this->w] - (this->mean)) * (this->data[i+j*this->w] - (this->mean)) ;
+            temp+=(float) (this->data[i+j*this->w] - (this->mean)) * (this->data[i+j*this->w] - (this->mean)) ;
         }
     }
-    //std::cout<<"(this->data[10+10*this->w] - (this->mean) : "<<(double)this->data[10+10*this->w] <<" - "<< (this->mean)<<std::endl;
-    this->variance = (double)( (double)temp/(double)((this->size)));
+    //std::cout<<"(this->data[10+10*this->w] - (this->mean) : "<<(float)this->data[10+10*this->w] <<" - "<< (this->mean)<<std::endl;
+    this->variance = (float)( (float)temp/(float)((this->size)));
 }
 
 void AbstractArea::standardDeviationCompute(){
-    this->standardDeviation = sqrt(this->variance);
+    this->standardDeviation = (float)sqrt(this->variance);
 }
 
 
 bool AbstractArea::isHomogeneousArea()
 {
     
-    for(int i = this->getX() ; i < this->getX() + this->getW(); i++)
+    for(int i = this->getI() ; i < this->getI() + this->getH(); i++)
     {   
-        for(int j = this->getY(); j< this->getY() + this->getH(); j++)
+        for(int j = this->getJ(); j< this->getJ() + this->getW(); j++)
         {
-            if(!((data[getIndex(this->getW() , i , j)] < this->getMean() + this->getStandardDeviation()) + 1
-                || 
-                ( data[getIndex(this->getW() , i , j)] > this->getMean() - this->getStandardDeviation()) - 1) )
+            if(!((data[getIndex(this->getW() , i , j)] < round( this->getMean() + this->getStandardDeviation())) 
+                &&
+                ( data[getIndex(this->getW() , i , j)] > round( this->getMean() - this->getStandardDeviation()) ) ))
             {
                 return false;
             }

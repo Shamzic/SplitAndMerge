@@ -31,18 +31,42 @@ int main(int argc, char* argv[])
   allocation_tableau(ImgOut, OCTET, nTaille);
   allocation_tableau(imgTest , OCTET , 16)  ;
 
-  Area* a = new Area(ImgIn,nW,nH,0,0); // Total area image
-  a->meanCompute();
-  std::cout<<"Mean of the image : "<<a->getMean()<<std::endl;
-  a->getTabSubArea(ImgOut); // Division in 4 mean corner : OK
-  ecrire_image_pgm(cNomImgEcrite, ImgOut,  nH, nW);
+  // Area* a = new Area(ImgIn,nW,nH,0,0); // Total area image
+  // a->meanCompute();
+  // std::cout<<"Mean of the image : "<<a->getMean()<<std::endl;
+  // a->getTabSubArea(ImgOut); // Division in 4 mean corner : OK
+  // ecrire_image_pgm(cNomImgEcrite, ImgOut,  nH, nW);
 
-  imgTest[0] =1 ; imgTest[1] =1 ; imgTest[2] =1 ; imgTest[3] =2 ;
+  imgTest[0] =1 ; imgTest[1] =1 ; imgTest[2] =3 ; imgTest[3] =2 ;
   imgTest[4] =1 ; imgTest[5] =2 ; imgTest[6] =4 ; imgTest[7] =7 ;
   imgTest[8] =7 ; imgTest[9] =6 ; imgTest[10]=2 ; imgTest[11]=3 ; 
   imgTest[12]=4 ; imgTest[13]=5 ; imgTest[14]=6 ; imgTest[15]=1 ;
-  Area* a_split_test = new Area(imgTest,4,4,0,0); // Total area image
   
+  // new OCTET*[this->h];
+  // for(int i = 0 ; i < this->h ; i ++ )
+  // {
+  //   data2D[i] = new OCTET[this->w];
+  // }
+
+  // for(int i = O; i < this->h; i++)
+  // {
+    
+  // }
+
+  Area* a_split_test = new Area(imgTest,4,4,0,0); // Total area image
+  // a_split_test->showArea();
+  a_split_test->meanCompute() ;
+  cout<<(float)a_split_test->getMean();
+  a_split_test->varianceCompute() ;
+  cout<<" "<<(float)a_split_test->getVariance();
+  a_split_test->standardDeviationCompute();
+  cout<<" "<<(float)a_split_test->getStandardDeviation();
+  cout<<endl;
+  if(a_split_test->isHomogeneousArea() )
+  {
+    cout<<"it is an HomogeneousArea"<<endl;    
+  }
+
   a_split_test->split();
 
   cout<<"end split"<<endl;

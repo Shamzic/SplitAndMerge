@@ -5,8 +5,11 @@
 #include <vector>
 #include <cmath>
 #include "image_ppm.h"
+#include <iomanip>
+
 
 typedef unsigned char OCTET;
+using namespace std;
 
 class AbstractArea
 {
@@ -15,6 +18,7 @@ class AbstractArea
     int w,h;
     int size;
     OCTET* data;
+    OCTET* data2D;
     double mean;
     double variance;
     double standardDeviation;
@@ -25,9 +29,11 @@ class AbstractArea
     void setY(int y);
     int getX() const;
     int getY() const;
-    int getMean() const;
-    int getVariance() const;
-    int getStandardDeviation() const;
+    float getMean() const;
+    float getVariance() const;
+    float getStandardDeviation() const;
+    void showArea();
+
     virtual int getI() const;
     virtual int getJ() const;
 
