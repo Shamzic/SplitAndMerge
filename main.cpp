@@ -57,26 +57,34 @@ int main(int argc, char* argv[])
     a_split_test->conv1Dvers2D();
     a_split_test->showArea2D();
     
-    a_split_test->meanCompute();
+    a_split_test->meanCompute2D();
     cout<<(float)a_split_test->getMean();
-    a_split_test->varianceCompute();
+    a_split_test->varianceCompute2D();
     
     cout<<" "<<(float)a_split_test->getVariance();
     a_split_test->standardDeviationCompute();
     cout<<" "<<(float)a_split_test->getStandardDeviation();
     cout<<endl;
-    
+    Area::areaofCaseInit(4,4);
     if(a_split_test->isHomogeneousArea() )
     {
       cout<<"it is an HomogeneousArea"<<endl;    
     }
 
-    a_split_test->split();
+    a_split_test->split2D(1);
     cout<<"end split"<<endl;
     
+    cout<<"showing area of cases"<<endl;
     
-    
-
+    for (int i = 0 ; i < 4 ; i++)
+    {
+      for (int j = 0 ; j < 4 ; j++)
+      {
+        cout<<i<<" , "<<j<<endl;
+        Area::areaofCase[i][j]->showArea2D();
+      }
+      cout<<endl;
+    } 
   }
 
   else

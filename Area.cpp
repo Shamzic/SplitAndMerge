@@ -2,6 +2,9 @@
 using namespace std;
 
 Area *** Area::areaofCase = NULL;
+
+Area *** Area::homogeneousAreas = NULL;
+
 void Area::areaofCaseInit(int w , int h)
 {
 	Area::areaofCase = new Area**[h];
@@ -16,6 +19,8 @@ void Area::areaofCaseInit(int w , int h)
 	}
  
 }
+
+
 Area::Area()
 {
 	this->subArea = NULL;
@@ -31,6 +36,7 @@ Area::Area(OCTET ** data2D, int w , int h , int x , int y) : AbstractArea(NULL, 
 {
 	this->data2D = data2D;
 	this->subArea = new std::vector<AbstractArea*>();
+	this->neighbors = new std::vector<AbstractArea*>();
 }
 
 // Area::Area(OCTET** data2D , int w , int h , int x , int y) : AbstracArea(data2D,w,h,x,y)
@@ -101,10 +107,10 @@ void Area::split2D(double seuil)
 {
 	int areas_info[4][4]=
 	{
-		{w/2, h/2, 0  , 0},
-		{w/2, h/2, w/2, 0},
-		{w/2, h/2, 0  , h/2},
-		{w/2, h/2, w/2, h/2}
+		{w/2, h/2, 0   +this->getJ(),this->getI() + 0},
+		{w/2, h/2, w/2 +this->getJ(),this->getI() + 0},
+		{w/2, h/2, 0   +this->getJ(),this->getI() + h/2},
+		{w/2, h/2, w/2 +this->getJ(),this->getI() + h/2}
 	};
 
 	this->meanCompute2D() ;
@@ -115,6 +121,7 @@ void Area::split2D(double seuil)
 	cout<<" "<<(float)this->getStandardDeviation();
 	cout<<endl;
 
+	
 	this->showArea2D();
 	if(this->getW() > 1 && this->getH() > 1 && !this->isHomogeneousArea2D(seuil))
 	{
@@ -133,9 +140,12 @@ void Area::split2D(double seuil)
 
 			subArea->at(i)->split2D(seuil);
 		}
+
 	}
 	else
 	{
+		Area::homogeneousAreas->push_back(this);
+		
 		cout<<"homogenous area"<<endl;
 		for(int i = this->getI() ; i <this->getI() + h ; i ++)
 		{
@@ -152,3 +162,14 @@ void Area::split2D(double seuil)
 }
 
 
+void Arrea::gatherNeighbors(double seuil)
+{
+	//Case of an homogeneous area
+	if(subArea->size() == 0)
+	{
+		for(int j = getJ() ; j < this->getW() ; j ++)
+		{
+			
+		}
+	}
+}

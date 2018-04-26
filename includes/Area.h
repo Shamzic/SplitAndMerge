@@ -14,6 +14,7 @@ class Area : public AbstractArea
 {
   protected:
     std::vector<AbstractArea*>* subArea;
+    std::vector<AbstracArea*>* neighbors;
   public:
     static Area***areaofCase ;
     // Constructors
