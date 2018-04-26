@@ -14,7 +14,7 @@ void Area::areaofCaseInit(int w , int h)
 			Area::areaofCase[i][j]= NULL;
 		}
 	}
-
+ 
 }
 Area::Area()
 {
