@@ -66,6 +66,7 @@ int main(int argc, char* argv[])
     cout<<" "<<(float)a_split_test->getStandardDeviation();
     cout<<endl;
     Area::areaofCaseInit(4,4);
+    Area::homogeneousAreasInit();
     if(a_split_test->isHomogeneousArea() )
     {
       cout<<"it is an HomogeneousArea"<<endl;    
@@ -85,6 +86,12 @@ int main(int argc, char* argv[])
       }
       cout<<endl;
     } 
+    cout<<endl;
+    cout<<"showing homogeneousAreas"<<endl;
+    for(unsigned int i = 0 ; i< Area::homogeneousAreas->size() ; i++)
+    {
+      Area::homogeneousAreas->at(i)->showArea2D();
+    }
   }
 
   else

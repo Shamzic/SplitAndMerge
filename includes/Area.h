@@ -11,18 +11,21 @@
 
 
 class Area : public AbstractArea
-{
+{ 
   protected:
     std::vector<AbstractArea*>* subArea;
-    std::vector<AbstracArea*>* neighbors;
+    std::vector<AbstractArea*>* neighbors;
   public:
+    static std::vector<AbstractArea*>* homogeneousAreas;
     static Area***areaofCase ;
     // Constructors
     static void areaofCaseInit(int w, int h);
+    static void homogeneousAreasInit();
     Area();
     Area(OCTET* data, int w, int h, int x, int y);
     Area(OCTET ** data2D, int w , int h , int x , int y);
     ~Area();
+    
     int getNbSubArea();
     void getTabSubArea(OCTET* ImgOut);
     void meanCorner(Area* a, OCTET* ImgOut);

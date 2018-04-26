@@ -3,7 +3,7 @@ using namespace std;
 
 Area *** Area::areaofCase = NULL;
 
-Area *** Area::homogeneousAreas = NULL;
+vector<AbstractArea*>* Area::homogeneousAreas = NULL;
 
 void Area::areaofCaseInit(int w , int h)
 {
@@ -19,7 +19,11 @@ void Area::areaofCaseInit(int w , int h)
 	}
  
 }
-
+ 
+void Area::homogeneousAreasInit()
+{
+	homogeneousAreas = new vector<AbstractArea*> ();
+}
 
 Area::Area()
 {
@@ -37,6 +41,7 @@ Area::Area(OCTET ** data2D, int w , int h , int x , int y) : AbstractArea(NULL, 
 	this->data2D = data2D;
 	this->subArea = new std::vector<AbstractArea*>();
 	this->neighbors = new std::vector<AbstractArea*>();
+
 }
 
 // Area::Area(OCTET** data2D , int w , int h , int x , int y) : AbstracArea(data2D,w,h,x,y)
@@ -162,14 +167,14 @@ void Area::split2D(double seuil)
 }
 
 
-void Arrea::gatherNeighbors(double seuil)
-{
-	//Case of an homogeneous area
-	if(subArea->size() == 0)
-	{
-		for(int j = getJ() ; j < this->getW() ; j ++)
-		{
+// void Area::gatherNeighbors(double seuil)
+// {
+// 	//Case of an homogeneous area
+// 	if(subArea->size() == 0)
+// 	{
+// 		for(int j = getJ() ; j < this->getW() ; j ++)
+// 		{
 			
-		}
-	}
-}
+// 		}
+// 	}
+// }
