@@ -61,8 +61,11 @@ class AbstractArea
     virtual void standardDeviationCompute();
     virtual void conv1Dvers2D();
     virtual bool isHomogeneousArea();
-    virtual void split()=0;
     
+    virtual void split2D(double seuil)=0;
+    void meanCompute2D();
+    void varianceCompute2D();
+    bool isHomogeneousArea2D(double seuil);
 };
 
 #endif

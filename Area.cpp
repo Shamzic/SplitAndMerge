@@ -1,5 +1,21 @@
 #include "includes/Area.h"
 using namespace std;
+
+Area *** Area::areaofCase = NULL;
+void Area::areaofCaseInit(int w , int h)
+{
+	Area::areaofCase = new Area**[h];
+	
+	for(int i =0 ; i < h ; i++)
+	{
+		Area::areaofCase[i] = new Area*[w];
+		for(int j = 0 ; j < w ; j++ ) 
+		{
+			Area::areaofCase[i][j]= NULL;
+		}
+	}
+
+}
 Area::Area()
 {
 	this->subArea = NULL;
@@ -11,10 +27,16 @@ Area::Area(OCTET* data, int w, int h, int x, int y) : AbstractArea(data,w,h,x,y)
 	
 }
 
-Area::Area(OCTET** data2D , int w , int h , int x , int y) : AbstracArea(data2D,w,h,x,y)
+Area::Area(OCTET ** data2D, int w , int h , int x , int y) : AbstractArea(NULL, w , h ,x ,y)
 {
-	this->subArea= new std::vector<AbstracArea*>();
+	this->data2D = data2D;
+	this->subArea = new std::vector<AbstractArea*>();
 }
+
+// Area::Area(OCTET** data2D , int w , int h , int x , int y) : AbstracArea(data2D,w,h,x,y)
+// {
+// 	this->subArea= new std::vector<AbstracArea*>();
+// }
 
 Area::~Area()
 {
@@ -74,25 +96,33 @@ void Area::meanCorner(Area* a, OCTET* ImgOut) {
 		for(int j = a->y; j< a->y + a->h; j++)
 			ImgOut[i + j*w] = a->mean;
 }
- 
-void Area::split()
+
+void Area::split2D(double seuil)
 {
 	int areas_info[4][4]=
 	{
 		{w/2, h/2, 0  , 0},
 		{w/2, h/2, w/2, 0},
-		{w/2, h/2, w/2, h/2},
-		{w/2, h/2, 0  , h/2}
+		{w/2, h/2, 0  , h/2},
+		{w/2, h/2, w/2, h/2}
 	};
 
-	this->showArea();
-	if(this->getW() > 1 && this->getH() > 1 && !this->isHomogeneousArea())
+	this->meanCompute2D() ;
+	cout<<(float)this->getMean();
+	this->varianceCompute2D() ;
+	cout<<" "<<(float)this->getVariance();
+	this->standardDeviationCompute();
+	cout<<" "<<(float)this->getStandardDeviation();
+	cout<<endl;
+
+	this->showArea2D();
+	if(this->getW() > 1 && this->getH() > 1 && !this->isHomogeneousArea2D(seuil))
 	{
 		cout<<"not homogeneous area"<<endl<<endl;
 
 		for (int i = 0 ; i < 4 ; i++)
 		{
-			subArea->push_back(new Area(data, 
+			subArea->push_back(new Area(data2D, 
 				areas_info[i][0], 
 				areas_info[i][1], 
 				areas_info[i][2], 
@@ -100,15 +130,25 @@ void Area::split()
 		}
 		for(int i = 0 ; i < 4 ; i ++)
 		{
-			subArea->at(i)->split();
+
+			subArea->at(i)->split2D(seuil);
 		}
-	}
-	else if(this->getW() > 1 && this->getH() > 1)
-	{
-		cout<<"homogenous area"<<endl;
 	}
 	else
 	{
-		cout<<"small area"<<endl;
+		cout<<"homogenous area"<<endl;
+		for(int i = this->getI() ; i <this->getI() + h ; i ++)
+		{
+			for(int j = this->getJ() ; j <this->getJ() + w ; j++)
+			{
+				Area::areaofCase[i][j] = (this);
+				
+			}
+		}
+
+
 	}
+	cout<<endl<<endl;
 }
+
+
