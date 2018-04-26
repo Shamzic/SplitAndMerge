@@ -118,18 +118,18 @@ void Area::split2D(double seuil)
 	};
 
 	this->meanCompute2D() ;
-	//cout<<(float)this->getMean();
+	cout<<(float)this->getMean();
 	this->varianceCompute2D() ;
-	//cout<<" "<<(float)this->getVariance()<<endl;
+	cout<<" "<<(float)this->getVariance();
 	this->standardDeviationCompute();
-	//cout<<" "<<(float)this->getStandardDeviation();
-	//cout<<endl;
+	cout<<" "<<(float)this->getStandardDeviation();
+	cout<<endl;
 
 	
-	//this->showArea2D();
+	this->showArea2D();
 	if(this->getW() > 1 && this->getH() > 1 && !this->isHomogeneousArea2D(seuil))
 	{
-	//	cout<<"not homogeneous area"<<endl<<endl;
+		cout<<"not homogeneous area"<<endl<<endl;
 
 		for (int i = 0 ; i < 4 ; i++)
 		{
@@ -150,8 +150,8 @@ void Area::split2D(double seuil)
 	{
 		Area::homogeneousAreas->push_back(this);
 		
-		//cout<<"homogenous area"<<endl;
-		//cout<<" "<<(float)this->getVariance()<<endl;
+		cout<<"homogenous area"<<endl;
+		cout<<" "<<(float)this->getVariance()<<endl;
 		for(int i = this->getI() ; i <this->getI() + h ; i ++)
 		{
 			for(int j = this->getJ() ; j <this->getJ() + w ; j++)
@@ -163,7 +163,7 @@ void Area::split2D(double seuil)
 
 
 	}
-	//cout<<endl<<endl;
+	cout<<endl<<endl;
 }
 
 void Area::split2Dtest(double seuil, int i)
@@ -177,11 +177,11 @@ void Area::split2Dtest(double seuil, int i)
 	};
 
 	this->meanCompute2D() ;
-	//cout<<(float)this->getMean();
+	cout<<(float)this->getMean();
 	this->varianceCompute2D() ;
-	//cout<<" "<<(float)this->getVariance()<<endl;
+	cout<<" "<<(float)this->getVariance()<<endl;
 	this->standardDeviationCompute();
-	//cout<<" "<<(float)this->getStandardDeviation();
+	cout<<" "<<(float)this->getStandardDeviation();
 	//cout<<endl;
 
 	
