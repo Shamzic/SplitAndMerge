@@ -2,6 +2,7 @@
 using namespace std;
 
 Area *** Area::areaofCase = NULL;
+Area **** Area::areaofCase3D = NULL;
 
 vector<AbstractArea*>* Area::homogeneousAreas = NULL;
 
@@ -14,10 +15,26 @@ void Area::areaofCaseInit(int w , int h) // Only leaf
 		Area::areaofCase[i] = new Area*[w];
 		for(int j = 0 ; j < w ; j++ ) 
 		{
+
 			Area::areaofCase[i][j]= NULL;
 		}
 	}
- 
+}
+
+void Area::areaofCaseInit3D(int w , int h) // Only leaf
+{
+	Area::areaofCase3D = new Area***[h];
+	
+	for(int i =0 ; i < h ; i++)
+	{
+		Area::areaofCase3D[i] = new Area**[w];
+		for(int j = 0 ; j < w ; j++ ) 
+		{
+			Area::areaofCase3D[i][j] = new Area*[3];
+			for(int k= 0; k<3; k++)
+				Area::areaofCase3D[i][j][k]= NULL;
+		}
+	}
 }
  
 void Area::homogeneousAreasInit()
@@ -32,13 +49,21 @@ Area::Area()
 
 Area::Area(OCTET* data, int w, int h, int x, int y) : AbstractArea(data,w,h,x,y)
 {
-	this->subArea = new std::vector<AbstractArea*>();	
+	this->subArea = new std::vector<AbstractArea*>();
+		
 	
 }
 
 Area::Area(OCTET ** data2D, int w , int h , int x , int y) : AbstractArea(NULL, w , h ,x ,y)
 {
 	this->data2D = data2D;
+	this->subArea = new std::vector<AbstractArea*>();
+	this->neighbors = new std::vector<AbstractArea*>();
+}
+
+Area::Area(OCTET *** data3D, int w , int h , int x , int y, int troisD) : AbstractArea(NULL, w , h ,x ,y)
+{
+	this->data3D = data3D;
 	this->subArea = new std::vector<AbstractArea*>();
 	this->neighbors = new std::vector<AbstractArea*>();
 }
@@ -200,3 +225,64 @@ void Area::merge2D(double seuil)
 // 		}
 // 	}
 // }
+
+void Area::split3D(double seuil)
+{
+	int areas_info[4][4]=
+	{
+		{w/2, h/2, 0   +this->getJ(),this->getI() + 0},
+		{w/2, h/2, w/2 +this->getJ(),this->getI() + 0},
+		{w/2, h/2, 0   +this->getJ(),this->getI() + h/2},
+		{w/2, h/2, w/2 +this->getJ(),this->getI() + h/2}
+	};
+
+	this->meanCompute3D_R();
+	this->meanCompute3D_G() ;
+	this->meanCompute3D_B() ;
+//	cout<<(float)this->getMean();
+	this->varianceCompute3D_R();
+	this->varianceCompute3D_G();
+	this->varianceCompute3D_B();
+
+	this->standardDeviationCompute_R();
+	this->standardDeviationCompute_G();
+	this->standardDeviationCompute_B();
+
+	cout<<"ok"<<endl;
+
+	if(this->getW() > 1 && this->getH() > 1 && !this->isHomogeneousArea3D(seuil))
+	{
+		//cout<<"not homogeneous area"<<endl<<endl;
+
+		for (int i = 0 ; i < 4 ; i++)
+		{
+			this->subArea->push_back(new Area(data3D, 
+				areas_info[i][0], 
+				areas_info[i][1], 
+				areas_info[i][2], 
+				areas_info[i][3],1));
+		}
+
+		for(int i = 0 ; i < 4 ; i ++)
+		{
+			this->subArea->at(i)->split3D(seuil);
+		}
+	}
+	else
+	{
+		Area::homogeneousAreas->push_back(this);
+		cout<<"homogeneous"<<endl;
+		for(int i = this->getI() ; i <this->getI() + h ; i ++)
+		{
+			for(int j = this->getJ() ; j <this->getJ() + w ; j++)
+			{
+				for(int k= 0; k<3; k++)
+					Area::areaofCase3D[i][j][k] = (this);
+				
+			}
+		}
+
+
+	}
+//	cout<<endl<<endl;
+}

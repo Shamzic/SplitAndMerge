@@ -10,6 +10,14 @@ AbstractArea::AbstractArea()
     this->size = w*h;
     this->mean = 0;
     this->variance = 0;
+    this->meanR = 0;
+    this->meanG = 0;
+    this->meanB = 0;
+    this->varianceR = 0;
+    this->varianceG = 0;
+    this->varianceB = 0;
+    this->data2D = NULL;
+    this->data3D = NULL;
 }
 
 
@@ -23,12 +31,33 @@ AbstractArea::AbstractArea(OCTET * data , int w, int h, int x, int y)
     this->data = data;
     this->mean = 0;
     this->variance = 0;
+    this->meanR = 0;
+    this->meanG = 0;
+    this->meanB = 0;
+    this->varianceR = 0;
+    this->varianceG = 0;
+    this->varianceB = 0;
+    //TODO fuite memoire 
     this->data2D = new OCTET*[h];
-    for(int i =0 ; i < w ; i++)
+
+    for(int i =0 ; i < h ; i++)
     {
         this->data2D[i]= new OCTET[h];
     } 
 
+
+
+    this->data3D = new OCTET**[h];
+    
+    for(int i =0 ; i < h ; i++)
+    {
+        this->data3D[i]= new OCTET*[w];
+    }
+    for(int i =0 ; i < h ; i++)
+        for(int j =0 ; j < w ; j++)
+        {
+            this->data3D[i][j]= new OCTET[3];
+        }
 }
 
 
@@ -128,6 +157,21 @@ float AbstractArea::getVariance() const
 float AbstractArea::getStandardDeviation() const
 {
     return this->standardDeviation;
+}
+
+float AbstractArea::getStandardDeviationR() const
+{
+    return this->standardDeviationR;
+}
+
+float AbstractArea::getStandardDeviationG() const
+{
+    return this->standardDeviationG;
+}
+
+float AbstractArea::getStandardDeviationB() const
+{
+    return this->standardDeviationB;
 }
 
 void AbstractArea::display() const
@@ -248,8 +292,8 @@ bool AbstractArea::isHomogeneousArea2D(double seuil)
 {
     
     return (this->getStandardDeviation() <= seuil);
-    
-}
+
+}    
 
 void AbstractArea::conv1Dvers2D()
 {
@@ -278,3 +322,139 @@ bool operator!=(const AbstractArea &a1 , const AbstractArea &a2)
 {
     return ! (a1 == a2); 
 }
+
+
+///////////////// 3D ////////////////////
+
+void AbstractArea::conv1Dvers3D()
+{
+    int i2=0,j2=0;
+
+    for(int i1 =0; i1 < w * h * 3; i1+=3)
+    {
+        if(i1 != 0 && (i1 % (w*3)) == 0)
+        {
+            i2++;
+            j2=0;       
+        }
+        data3D[i2][j2][0] = this->data[i1];
+        data3D[i2][j2][1] = this->data[i1];
+        data3D[i2][j2][2] = this->data[i1];
+        j2++;
+    } 
+}
+
+
+void AbstractArea::varianceCompute3D_R() {
+    
+    float temp = 0.0;
+    for(int i = this->getX() ; i < this->getX() + this->getW(); i++)
+    {   
+        for(int j = this->getY(); j< this->getY() + this->getH(); j++)
+        {
+            temp+=(float) (this->data3D[i][j][0] - (this->mean)) * (this->data3D[i][j][0] - (this->mean)) ;
+        }
+    }
+    //std::cout<<"(this->data2D[10+10*this->w] - (this->mean) : "<<(float)this->data2D[10+10*this->w] <<" - "<< (this->mean)<<std::endl;
+    this->varianceR = (float)( (float)temp/(float)((this->size)));
+}
+
+
+void AbstractArea::varianceCompute3D_G() {
+    
+    float temp = 0.0;
+    for(int i = this->getX() ; i < this->getX() + this->getW(); i++)
+    {   
+        for(int j = this->getY(); j< this->getY() + this->getH(); j++)
+        {
+            temp+=(float) (this->data3D[i][j][1] - (this->mean)) * (this->data3D[i][j][1] - (this->mean)) ;
+        }
+    }
+    //std::cout<<"(this->data2D[10+10*this->w] - (this->mean) : "<<(float)this->data2D[10+10*this->w] <<" - "<< (this->mean)<<std::endl;
+    this->varianceG = (float)( (float)temp/(float)((this->size)));
+}
+
+void AbstractArea::varianceCompute3D_B() {
+    
+    float temp = 0.0;
+    for(int i = this->getX() ; i < this->getX() + this->getW(); i++)
+    {   
+        for(int j = this->getY(); j< this->getY() + this->getH(); j++)
+        {
+            temp+=(float) (this->data3D[i][j][2]- (this->mean)) * (this->data3D[i][j][2] - (this->mean)) ;
+        }
+    }
+    //std::cout<<"(this->data2D[10+10*this->w] - (this->mean) : "<<(float)this->data2D[10+10*this->w] <<" - "<< (this->mean)<<std::endl;
+    this->varianceB = (float)( (float)temp/(float)((this->size)));
+}
+
+void AbstractArea::meanCompute3D_R() {
+
+    float temp = 0.0;
+    for(int i = this->getX() ; i < this->getX() + this->getW(); i++)
+    {   
+        for(int j = this->getY(); j< this->getY() + this->getH(); j++)
+        {
+            temp+=(float)this->data3D[i][j][0];
+        }
+    }
+    this->meanR = (float)( (float)temp/(float)(this->size));
+}
+
+void AbstractArea::meanCompute3D_G() {
+
+    float temp = 0.0;
+    for(int i = this->getX() ; i < this->getX() + this->getW(); i++)
+    {   
+        for(int j = this->getY(); j< this->getY() + this->getH(); j++)
+        {
+            temp+=(float)this->data3D[i][j][1];
+        }
+    }
+    this->meanG = (float)( (float)temp/(float)(this->size));
+}
+
+void AbstractArea::meanCompute3D_B() {
+
+    float temp = 0.0;
+    for(int i = this->getX() ; i < this->getX() + this->getW(); i++)
+    {   
+        for(int j = this->getY(); j< this->getY() + this->getH(); j++)
+        {
+            temp+=(float)this->data3D[i][j][2];
+        }
+    }
+    this->meanB = (float)( (float)temp/(float)(this->size));
+}
+
+void AbstractArea::standardDeviationCompute_R(){
+    this->standardDeviationR = (float)sqrt(this->varianceR);
+}
+
+void AbstractArea::standardDeviationCompute_G(){
+    this->standardDeviationG = (float)sqrt(this->varianceG);
+}
+
+void AbstractArea::standardDeviationCompute_B(){
+    this->standardDeviationB = (float)sqrt(this->varianceB);
+}
+
+bool AbstractArea::isHomogeneousArea3D(double seuil)
+{
+    return ((this->getStandardDeviationR() <= seuil) &&
+            (this->getStandardDeviationG() <= seuil) &&
+            (this->getStandardDeviationB() <= seuil));
+}
+
+float AbstractArea::getMeanR() const
+{
+    return this->meanR;
+} 
+float AbstractArea::getMeanG() const
+{
+    return this->meanG;
+} 
+float AbstractArea::getMeanB() const
+{
+    return this->meanB;
+} 

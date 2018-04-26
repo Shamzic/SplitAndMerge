@@ -23,8 +23,20 @@ class AbstractArea
     double mean;
     double variance;
     double standardDeviation;
+
+    double meanR;
+    double meanG;
+    double meanB;
+    double varianceR;
+    double varianceG;
+    double varianceB;
+    double standardDeviationR;
+    double standardDeviationG;
+    double standardDeviationB;
+
   public:
     OCTET** data2D;
+    OCTET*** data3D;
     //Accessors
     void setX(int x);
     void setY(int y);
@@ -33,6 +45,9 @@ class AbstractArea
     float getMean() const;
     float getVariance() const;
     float getStandardDeviation() const;
+    float getStandardDeviationR() const;
+    float getStandardDeviationG() const;
+    float getStandardDeviationB() const;
     void showArea();
     void showArea2D();
     virtual int getI() const;
@@ -60,12 +75,30 @@ class AbstractArea
     virtual void varianceCompute();
     virtual void standardDeviationCompute();
     virtual void conv1Dvers2D();
+
     virtual bool isHomogeneousArea();
     
     virtual void split2D(double seuil)=0;
     void meanCompute2D();
     void varianceCompute2D();
     bool isHomogeneousArea2D(double seuil);
+
+    // 3D
+    virtual void conv1Dvers3D();
+    virtual void split3D(double seuil)=0;
+    void meanCompute3D_R();
+    void meanCompute3D_G();
+    void meanCompute3D_B();
+    void varianceCompute3D_R();
+    void varianceCompute3D_G();
+    void varianceCompute3D_B();
+    virtual void standardDeviationCompute_R();
+    virtual void standardDeviationCompute_G();
+    virtual void standardDeviationCompute_B();
+    bool isHomogeneousArea3D(double seuil);
+    float getMeanR() const;
+    float getMeanG() const;
+    float getMeanB() const;
 };
 bool operator==(const AbstractArea &a1 , const AbstractArea &a2);
 bool operator!=(const AbstractArea &a1 , const AbstractArea &a2);
