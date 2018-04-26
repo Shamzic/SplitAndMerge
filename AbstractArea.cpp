@@ -211,6 +211,46 @@ bool AbstractArea::isHomogeneousArea()
 }
 
 
+
+//////////////////////////// 2D///////////////////////////////
+
+
+void AbstractArea::meanCompute2D() {
+
+    float temp = 0.0;
+    for(int i = this->getX() ; i < this->getX() + this->getW(); i++)
+    {   
+        for(int j = this->getY(); j< this->getY() + this->getH(); j++)
+        {
+        
+            temp+=(float)this->data2D[i][j];
+        }
+    }
+    this->mean = (float)( (float)temp/(float)(this->size));
+}
+
+void AbstractArea::varianceCompute2D() {
+    
+    float temp = 0.0;
+    for(int i = this->getX() ; i < this->getX() + this->getW(); i++)
+    {   
+        for(int j = this->getY(); j< this->getY() + this->getH(); j++)
+        {
+            temp+=(float) (this->data2D[i][j] - (this->mean)) * (this->data2D[i][j] - (this->mean)) ;
+        }
+    }
+    //std::cout<<"(this->data2D[10+10*this->w] - (this->mean) : "<<(float)this->data2D[10+10*this->w] <<" - "<< (this->mean)<<std::endl;
+    this->variance = (float)( (float)temp/(float)((this->size)));
+}
+
+
+bool AbstractArea::isHomogeneousArea2D(double seuil)
+{
+    
+    return (this->getVariance() <= seuil);
+    
+}
+
 void AbstractArea::conv1Dvers2D()
 {
     for(int i1 =0; i1 < h ; i1++)

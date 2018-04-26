@@ -37,11 +37,6 @@ int main(int argc, char* argv[])
   }
 
   
-  // new OCTET*[this->h];
-  // for(int i = 0 ; i < this->h ; i ++ )
-  // {
-  //   data2D[i] = new OCTET[this->w];
-  // }
 
   // for(int i = O; i < this->h; i++)
   // {
