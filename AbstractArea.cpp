@@ -247,7 +247,7 @@ void AbstractArea::varianceCompute2D() {
 bool AbstractArea::isHomogeneousArea2D(double seuil)
 {
     
-    return (this->getVariance() <= seuil);
+    return (this->getStandardDeviation() <= seuil);
     
 }
 

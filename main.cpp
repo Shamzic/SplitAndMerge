@@ -72,7 +72,7 @@ int main(int argc, char* argv[])
     cout<<endl;
     Area::areaofCaseInit(nW,nH);
     Area::homogeneousAreasInit();
-    a_split_test_2->split2D(500);
+    a_split_test_2->split2D(22);
 
     for(unsigned int k = 0 ; k < Area::homogeneousAreas->size();  k++) 
     {

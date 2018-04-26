@@ -31,7 +31,7 @@ class Area : public AbstractArea
     void meanCorner(Area* a, OCTET* ImgOut);
     void merge2D(double seuil);
     virtual void split2D(double seuil);
-    virtual void split2Dtest(double seuil, int i);
+    
 };
 
 #endif
