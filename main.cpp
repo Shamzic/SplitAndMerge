@@ -8,8 +8,8 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-  char cNomImgLue[250], cNomImgEcrite[250];
-  int nH=0, nW=0, nTaille;
+  char cNomImgLue[250], cNomImgSplit[250] , cNomImgMerge[250];
+  int nH=0, nW=0, nTaille , seuilSplit , seuilMerge;
 
 /*  if (argc == 3) 
   {
@@ -43,37 +43,44 @@ int main(int argc, char* argv[])
     
   // }
 /*  else*/ 
-  if(argc == 3)
+  if(argc == 6)
   {
 
     sscanf (argv[1],"%s",cNomImgLue) ;
-    sscanf (argv[2],"%s",cNomImgEcrite);
-    OCTET *ImgIn, *ImgOut; 
+    sscanf (argv[2],"%s",cNomImgSplit);
+    sscanf (argv[3],"%s",cNomImgMerge);
+    sscanf (argv[4],"%i",&seuilSplit);
+    sscanf (argv[5],"%i",&seuilMerge);
+
+    OCTET *ImgIn, *ImgOutSplit, *ImgOutMerge; 
     lire_nb_lignes_colonnes_image_pgm(cNomImgLue, &nH, &nW);
     nTaille = nH * nW;
     cout<<"Taille = "<<nH<<"*"<<nW<<endl;
     allocation_tableau(ImgIn, OCTET, nTaille);
     lire_image_pgm(cNomImgLue, ImgIn, nH * nW);
-    allocation_tableau(ImgOut, OCTET, nTaille);
+    allocation_tableau(ImgOutSplit, OCTET, nTaille);
+    allocation_tableau(ImgOutMerge, OCTET , nTaille);
 
-    Area* a_split_test_2 = new Area(ImgIn,nW,nH,0,0); // Total area image
+    cout<<"Creating Area"<<endl;
+    Area* area = new Area(ImgIn,nW,nH,0,0); // Total area image
+    area->myId = Area::getAreaId();
+    // area->showArea();
+    cout<<"Converting 1D vers 2D"<<endl;
+    area->conv1Dvers2D();
+    // area->showArea2D();
     
-    // a_split_test_2->showArea();
-    a_split_test_2->conv1Dvers2D();
-    // a_split_test_2->showArea2D();
-
-    a_split_test_2->meanCompute2D();
-    cout<<(float)a_split_test_2->getMean();
-    a_split_test_2->varianceCompute2D();
-    
-    cout<<" "<<(float)a_split_test_2->getVariance();
-    a_split_test_2->standardDeviationCompute();
-    cout<<" "<<(float)a_split_test_2->getStandardDeviation();
-    cout<<endl;
     Area::areaofCaseInit(nW,nH);
+    
     Area::homogeneousAreasInit();
-    a_split_test_2->split2D(22);
-
+    
+    area->split2D(seuilSplit);
+    cout<<endl<<"=== showing homogeneousAreas after split2D"<<endl;
+    for(unsigned int i = 0 ; i< Area::homogeneousAreas->size() ; i++)
+    {
+      Area::homogeneousAreas->at(i)->showArea2D();
+    }
+    cout<<"Drawing splitted image"<<endl;
+    // =====================================
     for(unsigned int k = 0 ; k < Area::homogeneousAreas->size();  k++) 
     {
       cout<<"Airehomogene "<<k<<endl;
@@ -87,13 +94,32 @@ int main(int argc, char* argv[])
       {
         for(int j = y; j<y+w; j++)
         {
-          ImgOut[j*nW+i] = Area::homogeneousAreas->at(k)->getMean();
+          ImgOutSplit[j*nW+i] = Area::homogeneousAreas->at(k)->getMean();
+
          // cout<<"i : "<<i<<" j : "<<j<<endl;
         }
       }
      
     }
-    ecrire_image_pgm(cNomImgEcrite, ImgOut,  nH, nW);
+    ecrire_image_pgm(cNomImgSplit, ImgOutSplit,  nH, nW);
+
+    // area->merge2D(40);
+    // cout<<"showing homogeneousAreas after merge2D"<<endl;
+    // for(unsigned int i = 0 ; i< Area::homogeneousAreas->size() ; i++)
+    // {
+    //   Area::homogeneousAreas->at(i)->showArea2D();
+    // }
+
+
+    // // =======================================
+    // for(int i = 0 ; i < nH ; i++)
+    // {
+    //   for(int j = 0 ; j < nW ; j++)
+    //   {
+    //     ImgOutMerge[j*nW + i] = area->data2D[i][j];
+    //   }
+    // }
+    ecrire_image_pgm(cNomImgMerge, ImgOutMerge , nH , nW);
     free(ImgIn);
   }
 
@@ -213,7 +239,7 @@ int main(int argc, char* argv[])
   else
 
   {
-    printf("Usage: ImageIn.pgm ImageOut.pgm \n \t pour question1"); 
+    printf("Usage: ImageIn.pgm ImageOutSplit.pgm ImageOutMerge.pgm seuilSplit seuilMerge\n \t "); 
     printf("Usage:  pour question2 test");
     exit (1) ;
 

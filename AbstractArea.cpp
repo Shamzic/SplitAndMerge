@@ -28,7 +28,7 @@ AbstractArea::AbstractArea(OCTET * data , int w, int h, int x, int y)
     {
         this->data2D[i]= new OCTET[h];
     } 
-
+    this->voisinMerge = new std::map<int,AbstractArea*>();
 }
 
 
@@ -49,6 +49,18 @@ void AbstractArea::showArea()
 
 void AbstractArea::showArea2D()
 {
+   
+    cout<<"id : "<<this->myId<<endl;;
+    cout<<"voisins merge ids :"<<endl;
+    
+    
+    
+    for(map<int,AbstractArea*>::iterator it = this->voisinMerge->begin(); it != this->voisinMerge->end(); ++it) 
+    {
+        cout<<it->first<< " ";
+    }
+
+    cout<<endl;
     cout<<"=====>"<<endl;
     for(int i = this->getI() ; i <this->getI() + this->getH() ; i++)
     {
@@ -59,7 +71,8 @@ void AbstractArea::showArea2D()
         }
         cout <<endl;
     }
-    cout<<"=====>"<<endl;   
+    cout<<"=====>"<<endl<<endl;   
+
 }
 
 AbstractArea::~AbstractArea() {
@@ -218,9 +231,9 @@ bool AbstractArea::isHomogeneousArea()
 void AbstractArea::meanCompute2D() {
 
     float temp = 0.0;
-    for(int i = this->getX() ; i < this->getX() + this->getW(); i++)
+    for(int i = this->getX() ; i < this->getX() + this->getH(); i++)
     {   
-        for(int j = this->getY(); j< this->getY() + this->getH(); j++)
+        for(int j = this->getY(); j< this->getY() + this->getW(); j++)
         {
         
             temp+=(float)this->data2D[i][j];
@@ -253,16 +266,19 @@ bool AbstractArea::isHomogeneousArea2D(double seuil)
 
 void AbstractArea::conv1Dvers2D()
 {
+    cout<<"\tinit"<<endl;
     for(int i1 =0; i1 < h ; i1++)
     {
         for(int j1 = 0 ; j1 < w ; j1++ )
         {
+
             data2D[i1][j1] = data[getIndex(w,i1,j1)];
             
         }
 
         
     } 
+    cout<<"\t end"<<endl;
 }
 
 

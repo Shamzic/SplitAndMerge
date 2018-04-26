@@ -5,6 +5,14 @@ Area *** Area::areaofCase = NULL;
 
 vector<AbstractArea*>* Area::homogeneousAreas = NULL;
 
+int Area::areaId = 0;
+
+
+int Area::getAreaId()
+{
+	return Area::areaId++;
+}
+
 void Area::areaofCaseInit(int w , int h) // Only leaf
 {
 	Area::areaofCase = new Area**[h];
@@ -19,6 +27,11 @@ void Area::areaofCaseInit(int w , int h) // Only leaf
 	}
  
 }
+
+int Area::getMyId()
+{
+	return this->myId;
+}
  
 void Area::homogeneousAreasInit()
 {
@@ -32,7 +45,11 @@ Area::Area()
 
 Area::Area(OCTET* data, int w, int h, int x, int y) : AbstractArea(data,w,h,x,y)
 {
+	this->data2D = data2D;
 	this->subArea = new std::vector<AbstractArea*>();	
+	this->subArea = new std::vector<AbstractArea*>();
+	this->neighbors = new std::vector<AbstractArea*>();
+	
 	
 }
 
@@ -41,6 +58,7 @@ Area::Area(OCTET ** data2D, int w , int h , int x , int y) : AbstractArea(NULL, 
 	this->data2D = data2D;
 	this->subArea = new std::vector<AbstractArea*>();
 	this->neighbors = new std::vector<AbstractArea*>();
+
 }
 
 // Area::Area(OCTET** data2D , int w , int h , int x , int y) : AbstracArea(data2D,w,h,x,y)
@@ -112,18 +130,18 @@ void Area::split2D(double seuil)
 	int areas_info[4][4]=
 	{
 		{w/2, h/2, 0   +this->getJ(),this->getI() + 0},
-		{w/2, h/2, w/2 +this->getJ(),this->getI() + 0},
+		{w/2, h/2, this->getJ() + w/2 ,this->getI() + 0},
 		{w/2, h/2, 0   +this->getJ(),this->getI() + h/2},
-		{w/2, h/2, w/2 +this->getJ(),this->getI() + h/2}
+		{w/2, h/2, this->getJ() + w/2 ,this->getI() + h/2}
 	};
 
-	this->meanCompute2D() ;
-	cout<<(float)this->getMean();
-	this->varianceCompute2D() ;
-	cout<<" "<<(float)this->getVariance();
+	this->meanCompute2D();
+	this->varianceCompute2D();
 	this->standardDeviationCompute();
-	cout<<" "<<(float)this->getStandardDeviation();
-	cout<<endl;
+	
+	 cout<<"Mean : "<<(float)this->getMean()<<endl;;
+    cout<<"Variance : "<<(float)this->getVariance()<<endl;;
+    cout<<"standardDeviation : "<<(float)this->getStandardDeviation()<<endl;;
 
 	
 	this->showArea2D();
@@ -133,11 +151,13 @@ void Area::split2D(double seuil)
 
 		for (int i = 0 ; i < 4 ; i++)
 		{
-			subArea->push_back(new Area(data2D, 
+			Area * area = new Area(data2D, 
 				areas_info[i][0], 
 				areas_info[i][1], 
 				areas_info[i][2], 
-				areas_info[i][3]));
+				areas_info[i][3]);
+			area->myId = Area::getAreaId();
+			subArea->push_back(area);
 		}
 		for(int i = 0 ; i < 4 ; i ++)
 		{
@@ -150,8 +170,10 @@ void Area::split2D(double seuil)
 	{
 		Area::homogeneousAreas->push_back(this);
 		
+		
+		
 		cout<<"homogenous area"<<endl;
-		cout<<" "<<(float)this->getVariance()<<endl;
+		
 		for(int i = this->getI() ; i <this->getI() + h ; i ++)
 		{
 			for(int j = this->getJ() ; j <this->getJ() + w ; j++)
@@ -174,11 +196,21 @@ void Area::merge2D(double seuil)
 		{
 			for(int ii = i - 1 ; ii < i + 3 ; ii++ )
 			{
-				for(int jj = j -1 ; jj < j + 3 ; jj++)
+				for(int jj = j - 1 ; jj < j + 3 ; jj++)
 				{
-					if(ii >= 0 && ii < this->getH() && jj >=0 && jj < this->getW() )
+					if(ii >= 0 
+						&& ii < this->getH() 
+						&& jj >=0 
+						&& jj < this->getW() 
+						&& i != ii && j != jj 
+						&& (*areaofCase[i][j] != *areaofCase[ii][jj]) 
+						&& 
+						(areaofCase[i][j]->getMean() - areaofCase[ii][jj]->getMean() < seuil) )
 					{
-											
+
+						areaofCase[ii][jj]->voisinMerge->insert(std::pair<int, AbstractArea*> (areaofCase[i][j]->getMyId() , areaofCase[i][j]));
+
+						areaofCase[i][j]->voisinMerge->insert(std::pair<int , AbstractArea*>(areaofCase[i][j]->getMyId() , areaofCase[ii][jj]));
 					}
 				}
 			}

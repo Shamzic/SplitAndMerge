@@ -8,7 +8,7 @@
 #include "image_ppm.h"
 #include <iostream>
 #include <iomanip>
-
+#include <map>
 
 class Area : public AbstractArea
 { 
@@ -18,14 +18,20 @@ class Area : public AbstractArea
   public:
     static std::vector<AbstractArea*>* homogeneousAreas;
     static Area***areaofCase ;
+    static int areaId;
+
     // Constructors
+    static int getAreaId();
     static void areaofCaseInit(int w, int h);
     static void homogeneousAreasInit();
+    
+    
     Area();
     Area(OCTET* data, int w, int h, int x, int y);
     Area(OCTET ** data2D, int w , int h , int x , int y);
     ~Area();
     
+    int getMyId();
     int getNbSubArea();
     void getTabSubArea(OCTET* ImgOut);
     void meanCorner(Area* a, OCTET* ImgOut);

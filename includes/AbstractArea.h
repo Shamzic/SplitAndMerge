@@ -6,7 +6,7 @@
 #include <cmath>
 #include "image_ppm.h"
 #include <iomanip>
-
+#include <map>
 
 typedef unsigned char OCTET;
 using namespace std;
@@ -24,7 +24,9 @@ class AbstractArea
     double variance;
     double standardDeviation;
   public:
+    int myId;
     OCTET** data2D;
+    std::map<int , AbstractArea*>* voisinMerge;
     //Accessors
     void setX(int x);
     void setY(int y);
