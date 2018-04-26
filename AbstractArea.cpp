@@ -266,3 +266,15 @@ void AbstractArea::conv1Dvers2D()
 }
 
 
+bool operator==(const AbstractArea &a1 , const AbstractArea &a2)
+{
+    return a1.getH() == a2.getH() &&
+           a1.getW() == a2.getW() &&
+           a1.getI() == a2.getI() &&
+           a1.getJ() == a2.getI();
+}
+
+bool operator!=(const AbstractArea &a1 , const AbstractArea &a2)
+{
+    return ! (a1 == a2); 
+}

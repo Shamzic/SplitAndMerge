@@ -41,7 +41,6 @@ Area::Area(OCTET ** data2D, int w , int h , int x , int y) : AbstractArea(NULL, 
 	this->data2D = data2D;
 	this->subArea = new std::vector<AbstractArea*>();
 	this->neighbors = new std::vector<AbstractArea*>();
-
 }
 
 // Area::Area(OCTET** data2D , int w , int h , int x , int y) : AbstracArea(data2D,w,h,x,y)
@@ -164,6 +163,28 @@ void Area::split2D(double seuil)
 
 	}
 	cout<<endl<<endl;
+}
+
+void Area::merge2D(double seuil)
+{
+	for(int i= 0 ; i < this->getH() ; i++)
+	{
+		for (int j = 0 ; j < this->getW() ; j++)
+		{
+			for(int ii = i - 1 ; ii < i + 3 ; ii++ )
+			{
+				for(int jj = j -1 ; jj < j + 3 ; jj++)
+				{
+					if(ii >= 0 && ii < this->getH() && jj >=0 && jj < this->getW() )
+					{
+											
+					}
+				}
+			}
+
+
+		}
+	}
 }
 
 

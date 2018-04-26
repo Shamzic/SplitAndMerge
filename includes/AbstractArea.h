@@ -67,5 +67,6 @@ class AbstractArea
     void varianceCompute2D();
     bool isHomogeneousArea2D(double seuil);
 };
-
+bool operator==(const AbstractArea &a1 , const AbstractArea &a2);
+bool operator!=(const AbstractArea &a1 , const AbstractArea &a2);
 #endif

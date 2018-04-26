@@ -29,7 +29,7 @@ class Area : public AbstractArea
     int getNbSubArea();
     void getTabSubArea(OCTET* ImgOut);
     void meanCorner(Area* a, OCTET* ImgOut);
-
+    void merge2D(double seuil);
     virtual void split2D(double seuil);
 };
 
