@@ -18,13 +18,13 @@ class AbstractArea
     int w,h;
     int size;
     OCTET* data;
-    OCTET** data2D;
+
 
     double mean;
     double variance;
     double standardDeviation;
   public:
-
+    OCTET** data2D;
     //Accessors
     void setX(int x);
     void setY(int y);

@@ -34,32 +34,32 @@ AbstractArea::AbstractArea(OCTET * data , int w, int h, int x, int y)
 
 void AbstractArea::showArea()
 {
-    cout<<"=====>"<<endl;
-    for(int i = this->getI() ; i <this->getI() + this->getH() ; i++)
-    {
-        for(int j = this->getJ() ; j < this->getJ() + this->getW() ; j++)
-        {
+    // cout<<"=====>"<<endl;
+    // for(int i = this->getI() ; i <this->getI() + this->getH() ; i++)
+    // {
+    //     for(int j = this->getJ() ; j < this->getJ() + this->getW() ; j++)
+    //     {
 
-            cout<<setw(10)<<getIndex(this->getW(), i , j)<<"="<<(int)data[getIndex(this->getW() , i , j)];
-        }
-        cout <<endl;
-    }
-    cout<<"=====>"<<endl;
+    //         cout<<setw(10)<<getIndex(this->getW(), i , j)<<"="<<(int)data[getIndex(this->getW() , i , j)];
+    //     }
+    //     cout <<endl;
+    // }
+    // cout<<"=====>"<<endl;
 }
 
 void AbstractArea::showArea2D()
 {
-    cout<<"=====>"<<endl;
-    for(int i = this->getI() ; i <this->getI() + this->getH() ; i++)
-    {
-        for(int j = this->getJ() ; j < this->getJ() + this->getW() ; j++)
-        {
+    // cout<<"=====>"<<endl;
+    // for(int i = this->getI() ; i <this->getI() + this->getH() ; i++)
+    // {
+    //     for(int j = this->getJ() ; j < this->getJ() + this->getW() ; j++)
+    //     {
 
-            cout<<setw(10)<< i <<","<< j<<"="<<(int)data2D[i][j]<< " ";;
-        }
-        cout <<endl;
-    }
-    cout<<"=====>"<<endl;   
+    //         cout<<setw(10)<< i <<","<< j<<"="<<(int)data2D[i][j]<< " ";;
+    //     }
+    //     cout <<endl;
+    // }
+    // cout<<"=====>"<<endl;   
 }
 
 AbstractArea::~AbstractArea() {
