@@ -5,7 +5,7 @@ Area *** Area::areaofCase = NULL;
 
 vector<AbstractArea*>* Area::homogeneousAreas = NULL;
 
-void Area::areaofCaseInit(int w , int h)
+void Area::areaofCaseInit(int w , int h) // Only leaf
 {
 	Area::areaofCase = new Area**[h];
 	
@@ -119,18 +119,18 @@ void Area::split2D(double seuil)
 	};
 
 	this->meanCompute2D() ;
-	cout<<(float)this->getMean();
+	//cout<<(float)this->getMean();
 	this->varianceCompute2D() ;
-	cout<<" "<<(float)this->getVariance();
+	//cout<<" "<<(float)this->getVariance()<<endl;
 	this->standardDeviationCompute();
-	cout<<" "<<(float)this->getStandardDeviation();
-	cout<<endl;
+	//cout<<" "<<(float)this->getStandardDeviation();
+	//cout<<endl;
 
 	
-	this->showArea2D();
+	//this->showArea2D();
 	if(this->getW() > 1 && this->getH() > 1 && !this->isHomogeneousArea2D(seuil))
 	{
-		cout<<"not homogeneous area"<<endl<<endl;
+	//	cout<<"not homogeneous area"<<endl<<endl;
 
 		for (int i = 0 ; i < 4 ; i++)
 		{
@@ -151,7 +151,8 @@ void Area::split2D(double seuil)
 	{
 		Area::homogeneousAreas->push_back(this);
 		
-		cout<<"homogenous area"<<endl;
+		//cout<<"homogenous area"<<endl;
+		//cout<<" "<<(float)this->getVariance()<<endl;
 		for(int i = this->getI() ; i <this->getI() + h ; i ++)
 		{
 			for(int j = this->getJ() ; j <this->getJ() + w ; j++)
@@ -163,7 +164,66 @@ void Area::split2D(double seuil)
 
 
 	}
-	cout<<endl<<endl;
+	//cout<<endl<<endl;
+}
+
+void Area::split2Dtest(double seuil, int i)
+{
+	int areas_info[4][4]=
+	{
+		{w/2, h/2, 0   +this->getJ(),this->getI() + 0},
+		{w/2, h/2, w/2 +this->getJ(),this->getI() + 0},
+		{w/2, h/2, 0   +this->getJ(),this->getI() + h/2},
+		{w/2, h/2, w/2 +this->getJ(),this->getI() + h/2}
+	};
+
+	this->meanCompute2D() ;
+	//cout<<(float)this->getMean();
+	this->varianceCompute2D() ;
+	//cout<<" "<<(float)this->getVariance()<<endl;
+	this->standardDeviationCompute();
+	//cout<<" "<<(float)this->getStandardDeviation();
+	//cout<<endl;
+
+	
+	//this->showArea2D();
+	if(this->getW() > 1 && this->getH() > 1 && !this->isHomogeneousArea2D(seuil) && i<5)
+	{
+	//	cout<<"not homogeneous area"<<endl<<endl;
+
+		for (int i = 0 ; i < 4 ; i++)
+		{
+			subArea->push_back(new Area(data2D, 
+				areas_info[i][0], 
+				areas_info[i][1], 
+				areas_info[i][2], 
+				areas_info[i][3]));
+		}
+		for(int i = 0 ; i < 4 ; i ++)
+		{
+
+			subArea->at(i)->split2D(seuil);
+		}
+
+	}
+	else
+	{
+		Area::homogeneousAreas->push_back(this);
+		
+		//cout<<"homogenous area"<<endl;
+		//cout<<" "<<(float)this->getVariance()<<endl;
+		for(int i = this->getI() ; i <this->getI() + h ; i ++)
+		{
+			for(int j = this->getJ() ; j <this->getJ() + w ; j++)
+			{
+				Area::areaofCase[i][j] = (this);
+				
+			}
+		}
+
+
+	}
+	//cout<<endl<<endl;
 }
 
 
