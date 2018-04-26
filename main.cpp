@@ -63,20 +63,20 @@ int main(int argc, char* argv[])
     // a_split_test_2->showArea2D();
 
     a_split_test_2->meanCompute2D();
-    cout<<(float)a_split_test_2->getMean();
+    //cout<<(float)a_split_test_2->getMean();
     a_split_test_2->varianceCompute2D();
     
     cout<<" "<<(float)a_split_test_2->getVariance();
     a_split_test_2->standardDeviationCompute();
-    cout<<" "<<(float)a_split_test_2->getStandardDeviation();
-    cout<<endl;
+/*    cout<<" "<<(float)a_split_test_2->getStandardDeviation();
+    cout<<endl;*/
     Area::areaofCaseInit(nW,nH);
     Area::homogeneousAreasInit();
     a_split_test_2->split2D(22);
 
     for(unsigned int k = 0 ; k < Area::homogeneousAreas->size();  k++) 
     {
-      cout<<"Airehomogene "<<k<<endl;
+      //cout<<"Airehomogene "<<k<<endl;
       int x = Area::homogeneousAreas->at(k)->getI(); // coordonées du coin haut gauche
       int y = Area::homogeneousAreas->at(k)->getJ(); // de l'aire homogène en cours de traitement
 
