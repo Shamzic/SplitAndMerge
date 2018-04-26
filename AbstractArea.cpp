@@ -53,6 +53,10 @@ void AbstractArea::showArea2D()
     cout<<"id : "<<this->myId<<endl;;
     cout<<"voisins merge ids :"<<endl;
     
+    cout<<"Mean : "<<(float)this->getMean()<<endl;;
+    cout<<"Variance : "<<(float)this->getVariance()<<endl;;
+    cout<<"standardDeviation : "<<(float)this->getStandardDeviation()<<endl;;
+
     
     
     for(map<int,AbstractArea*>::iterator it = this->voisinMerge->begin(); it != this->voisinMerge->end(); ++it) 
@@ -161,11 +165,12 @@ void  AbstractArea::getTabSubArea() { // TODO
 }
 void AbstractArea::meanCompute(OCTET* data) { // TODO
 	float temp = 0.0;
-	for(int i = 0; i<w; i++)
+	for(int i = 0; i<h; i++)
 	{
-		for(int j=0; j<h; j++)
+		for(int j=0; j<w; j++)
 		{
 			temp+=data[i+j*w];
+
 		}
 	}
 	mean = temp/(w*h);
@@ -231,23 +236,27 @@ bool AbstractArea::isHomogeneousArea()
 void AbstractArea::meanCompute2D() {
 
     float temp = 0.0;
-    for(int i = this->getX() ; i < this->getX() + this->getH(); i++)
+    
+    for(int i = this->getI() ; i < this->getI() + this->getH(); i++)
     {   
-        for(int j = this->getY(); j< this->getY() + this->getW(); j++)
+        for(int j = this->getJ(); j< this->getJ() + this->getW(); j++)
         {
-        
+            
             temp+=(float)this->data2D[i][j];
+            cout<<i<<","<<j<<" = "<<(int)data2D[i][j]<<" ";
         }
+        cout<<endl;
     }
     this->mean = (float)( (float)temp/(float)(this->size));
+    
 }
 
 void AbstractArea::varianceCompute2D() {
     
     float temp = 0.0;
-    for(int i = this->getX() ; i < this->getX() + this->getW(); i++)
+    for(int i = this->getI() ; i < this->getI() + this->getH(); i++)
     {   
-        for(int j = this->getY(); j< this->getY() + this->getH(); j++)
+        for(int j = this->getJ(); j< this->getJ() + this->getW(); j++)
         {
             temp+=(float) (this->data2D[i][j] - (this->mean)) * (this->data2D[i][j] - (this->mean)) ;
         }

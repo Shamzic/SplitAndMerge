@@ -84,17 +84,18 @@ int main(int argc, char* argv[])
     for(unsigned int k = 0 ; k < Area::homogeneousAreas->size();  k++) 
     {
       cout<<"Airehomogene "<<k<<endl;
-      int x = Area::homogeneousAreas->at(k)->getI(); // coordonées du coin haut gauche
-      int y = Area::homogeneousAreas->at(k)->getJ(); // de l'aire homogène en cours de traitement
+      int icord = Area::homogeneousAreas->at(k)->getI(); // coordonées du coin haut gauche
+      int jcord = Area::homogeneousAreas->at(k)->getJ(); // de l'aire homogène en cours de traitement
 
       int w =  Area::homogeneousAreas->at(k)->getW();
       int h =  Area::homogeneousAreas->at(k)->getH();
 
-      for(int i = x; i< x+h; i++)
+      for(int i = icord; i< icord+h; i++)
       {
-        for(int j = y; j<y+w; j++)
+        for(int j = jcord; j<jcord+w; j++)
         {
-          ImgOutSplit[j*nW+i] = Area::homogeneousAreas->at(k)->getMean();
+          cout<<i<<","<<j<<"="<<Area::homogeneousAreas->at(k)->getMean()<<endl;
+          ImgOutSplit[(i*nW)+j] = Area::homogeneousAreas->at(k)->getMean();
 
          // cout<<"i : "<<i<<" j : "<<j<<endl;
         }

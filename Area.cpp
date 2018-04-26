@@ -129,22 +129,20 @@ void Area::split2D(double seuil)
 {
 	int areas_info[4][4]=
 	{
-		{w/2, h/2, 0   +this->getJ(),this->getI() + 0},
-		{w/2, h/2, this->getJ() + w/2 ,this->getI() + 0},
-		{w/2, h/2, 0   +this->getJ(),this->getI() + h/2},
-		{w/2, h/2, this->getJ() + w/2 ,this->getI() + h/2}
+		{w/2, h/2, this->getJ()       , this->getI()},
+		{w/2, h/2, this->getJ() + w/2 , this->getI()},
+		{w/2, h/2, this->getJ()       , this->getI() + h/2},
+		{w/2, h/2, this->getJ() + w/2 , this->getI() + h/2}
 	};
 
 	this->meanCompute2D();
 	this->varianceCompute2D();
 	this->standardDeviationCompute();
 	
-	 cout<<"Mean : "<<(float)this->getMean()<<endl;;
-    cout<<"Variance : "<<(float)this->getVariance()<<endl;;
-    cout<<"standardDeviation : "<<(float)this->getStandardDeviation()<<endl;;
-
+	
 	
 	this->showArea2D();
+	
 	if(this->getW() > 1 && this->getH() > 1 && !this->isHomogeneousArea2D(seuil))
 	{
 		cout<<"not homogeneous area"<<endl<<endl;

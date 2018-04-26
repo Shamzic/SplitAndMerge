@@ -3,14 +3,15 @@ Creating Area
 Converting 1D vers 2D
 	init
 	 end
-Mean : 120.812
-Variance : 4930.15
-standardDeviation : 70.215
-Mean : 120.812
-Variance : 4930.15
-standardDeviation : 70.215
+0,0 = 201 0,1 = 21 0,2 = 103 0,3 = 102 
+1,0 = 201 1,1 = 202 1,2 = 54 1,3 = 207 
+2,0 = 9 2,1 = 86 2,2 = 158 2,3 = 203 
+3,0 = 194 3,1 = 65 3,2 = 66 3,3 = 61 
 id : 0
 voisins merge ids :
+Mean : 120.812
+Variance : 4930.15
+standardDeviation : 70.215
 
 =====>
          0,0=201          0,1=21          0,2=103          0,3=102 
@@ -21,14 +22,13 @@ voisins merge ids :
 
 not homogeneous area
 
-Mean : 156.25
-Variance : 6097.69
-standardDeviation : 78.0877
-Mean : 156.25
-Variance : 6097.69
-standardDeviation : 78.0877
+0,0 = 201 0,1 = 21 
+1,0 = 201 1,1 = 202 
 id : 1
 voisins merge ids :
+Mean : 156.25
+Variance : 6097.69
+standardDeviation : 78.0877
 
 =====>
          0,0=201          0,1=21 
@@ -37,14 +37,12 @@ voisins merge ids :
 
 not homogeneous area
 
-Mean : 201
-Variance : 0
-standardDeviation : 0
-Mean : 201
-Variance : 0
-standardDeviation : 0
+0,0 = 201 
 id : 5
 voisins merge ids :
+Mean : 201
+Variance : 0
+standardDeviation : 0
 
 =====>
          0,0=201 
@@ -53,14 +51,12 @@ voisins merge ids :
 homogenous area
 
 
-Mean : 201
-Variance : 0
-standardDeviation : 0
-Mean : 201
-Variance : 0
-standardDeviation : 0
+0,1 = 21 
 id : 6
 voisins merge ids :
+Mean : 21
+Variance : 0
+standardDeviation : 0
 
 =====>
          0,1=21 
@@ -69,14 +65,12 @@ voisins merge ids :
 homogenous area
 
 
-Mean : 21
-Variance : 0
-standardDeviation : 0
-Mean : 21
-Variance : 0
-standardDeviation : 0
+1,0 = 201 
 id : 7
 voisins merge ids :
+Mean : 201
+Variance : 0
+standardDeviation : 0
 
 =====>
          1,0=201 
@@ -85,14 +79,12 @@ voisins merge ids :
 homogenous area
 
 
-Mean : 202
-Variance : 0
-standardDeviation : 0
-Mean : 202
-Variance : 0
-standardDeviation : 0
+1,1 = 202 
 id : 8
 voisins merge ids :
+Mean : 202
+Variance : 0
+standardDeviation : 0
 
 =====>
          1,1=202 
@@ -103,113 +95,102 @@ homogenous area
 
 
 
-Mean : 88.5
-Variance : 4502.25
-standardDeviation : 67.0988
-Mean : 88.5
-Variance : 4502.25
-standardDeviation : 67.0988
+0,2 = 103 0,3 = 102 
+1,2 = 54 1,3 = 207 
 id : 2
 voisins merge ids :
+Mean : 116.5
+Variance : 3122.25
+standardDeviation : 55.8771
 
 =====>
          0,2=103          0,3=102 
          1,2=54          1,3=207 
 =====>
 
-not homogeneous area
-
-Mean : 9
-Variance : 0
-standardDeviation : 0
-Mean : 9
-Variance : 0
-standardDeviation : 0
-id : 9
-voisins merge ids :
-
-=====>
-         0,2=103 
-=====>
-
 homogenous area
 
 
-Mean : 194
-Variance : 0
-standardDeviation : 0
-Mean : 194
-Variance : 0
-standardDeviation : 0
-id : 10
-voisins merge ids :
-
-=====>
-         0,3=102 
-=====>
-
-homogenous area
-
-
-Mean : 86
-Variance : 0
-standardDeviation : 0
-Mean : 86
-Variance : 0
-standardDeviation : 0
-id : 11
-voisins merge ids :
-
-=====>
-         1,2=54 
-=====>
-
-homogenous area
-
-
-Mean : 65
-Variance : 0
-standardDeviation : 0
-Mean : 65
-Variance : 0
-standardDeviation : 0
-id : 12
-voisins merge ids :
-
-=====>
-         1,3=207 
-=====>
-
-homogenous area
-
-
-
-
-Mean : 116.5
-Variance : 3122.25
-standardDeviation : 55.8771
-Mean : 116.5
-Variance : 3122.25
-standardDeviation : 55.8771
+2,0 = 9 2,1 = 86 
+3,0 = 194 3,1 = 65 
 id : 3
 voisins merge ids :
+Mean : 88.5
+Variance : 4502.25
+standardDeviation : 67.0988
 
 =====>
          2,0=9          2,1=86 
          3,0=194          3,1=65 
 =====>
 
+not homogeneous area
+
+2,0 = 9 
+id : 9
+voisins merge ids :
+Mean : 9
+Variance : 0
+standardDeviation : 0
+
+=====>
+         2,0=9 
+=====>
+
 homogenous area
 
 
-Mean : 122
-Variance : 3678.5
-standardDeviation : 60.6506
-Mean : 122
-Variance : 3678.5
-standardDeviation : 60.6506
+2,1 = 86 
+id : 10
+voisins merge ids :
+Mean : 86
+Variance : 0
+standardDeviation : 0
+
+=====>
+         2,1=86 
+=====>
+
+homogenous area
+
+
+3,0 = 194 
+id : 11
+voisins merge ids :
+Mean : 194
+Variance : 0
+standardDeviation : 0
+
+=====>
+         3,0=194 
+=====>
+
+homogenous area
+
+
+3,1 = 65 
+id : 12
+voisins merge ids :
+Mean : 65
+Variance : 0
+standardDeviation : 0
+
+=====>
+         3,1=65 
+=====>
+
+homogenous area
+
+
+
+
+2,2 = 158 2,3 = 203 
+3,2 = 66 3,3 = 61 
 id : 4
 voisins merge ids :
+Mean : 122
+Variance : 3678.5
+standardDeviation : 60.6506
 
 =====>
          2,2=158          2,3=203 
@@ -223,102 +204,102 @@ homogenous area
 
 
 === showing homogeneousAreas after split2D
+id : 5
+voisins merge ids :
 Mean : 201
 Variance : 0
 standardDeviation : 0
-id : 5
-voisins merge ids :
 
 =====>
          0,0=201 
 =====>
 
-Mean : 201
-Variance : 0
-standardDeviation : 0
 id : 6
 voisins merge ids :
+Mean : 21
+Variance : 0
+standardDeviation : 0
 
 =====>
          0,1=21 
 =====>
 
-Mean : 21
-Variance : 0
-standardDeviation : 0
 id : 7
 voisins merge ids :
+Mean : 201
+Variance : 0
+standardDeviation : 0
 
 =====>
          1,0=201 
 =====>
 
+id : 8
+voisins merge ids :
 Mean : 202
 Variance : 0
 standardDeviation : 0
-id : 8
-voisins merge ids :
 
 =====>
          1,1=202 
 =====>
 
-Mean : 9
-Variance : 0
-standardDeviation : 0
-id : 9
+id : 2
 voisins merge ids :
-
-=====>
-         0,2=103 
-=====>
-
-Mean : 194
-Variance : 0
-standardDeviation : 0
-id : 10
-voisins merge ids :
-
-=====>
-         0,3=102 
-=====>
-
-Mean : 86
-Variance : 0
-standardDeviation : 0
-id : 11
-voisins merge ids :
-
-=====>
-         1,2=54 
-=====>
-
-Mean : 65
-Variance : 0
-standardDeviation : 0
-id : 12
-voisins merge ids :
-
-=====>
-         1,3=207 
-=====>
-
 Mean : 116.5
 Variance : 3122.25
 standardDeviation : 55.8771
-id : 3
+
+=====>
+         0,2=103          0,3=102 
+         1,2=54          1,3=207 
+=====>
+
+id : 9
 voisins merge ids :
+Mean : 9
+Variance : 0
+standardDeviation : 0
 
 =====>
-         2,0=9          2,1=86 
-         3,0=194          3,1=65 
+         2,0=9 
 =====>
 
+id : 10
+voisins merge ids :
+Mean : 86
+Variance : 0
+standardDeviation : 0
+
+=====>
+         2,1=86 
+=====>
+
+id : 11
+voisins merge ids :
+Mean : 194
+Variance : 0
+standardDeviation : 0
+
+=====>
+         3,0=194 
+=====>
+
+id : 12
+voisins merge ids :
+Mean : 65
+Variance : 0
+standardDeviation : 0
+
+=====>
+         3,1=65 
+=====>
+
+id : 4
+voisins merge ids :
 Mean : 122
 Variance : 3678.5
 standardDeviation : 60.6506
-id : 4
-voisins merge ids :
 
 =====>
          2,2=158          2,3=203 
@@ -327,12 +308,28 @@ voisins merge ids :
 
 Drawing splitted image
 Airehomogene 0
+0,0=201
 Airehomogene 1
+0,1=21
 Airehomogene 2
+1,0=201
 Airehomogene 3
+1,1=202
 Airehomogene 4
+0,2=116.5
+0,3=116.5
+1,2=116.5
+1,3=116.5
 Airehomogene 5
+2,0=9
 Airehomogene 6
+2,1=86
 Airehomogene 7
+3,0=194
 Airehomogene 8
+3,1=65
 Airehomogene 9
+2,2=122
+2,3=122
+3,2=122
+3,3=122
