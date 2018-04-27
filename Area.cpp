@@ -142,7 +142,7 @@ void Area::split2D(double seuil)
 	
 	
 	this->showArea2D();
-	
+
 	if(this->getW() > 1 && this->getH() > 1 && !this->isHomogeneousArea2D(seuil))
 	{
 		cout<<"not homogeneous area"<<endl<<endl;
@@ -188,27 +188,33 @@ void Area::split2D(double seuil)
 
 void Area::merge2D(double seuil)
 {
-	for(int i= 0 ; i < this->getH() ; i++)
+	for(int i= this->getI() ; i <this->getI() + this->getH() ; i++)
 	{
-		for (int j = 0 ; j < this->getW() ; j++)
+		for (int j = this->getJ() ; j <this->getJ() + this->getW() ; j++)
 		{
-			for(int ii = i - 1 ; ii < i + 3 ; ii++ )
+			for(int ii = i - 1 ; ii < i + 2 ; ii++ )
 			{
-				for(int jj = j - 1 ; jj < j + 3 ; jj++)
+				for(int jj = j - 1 ; jj < j + 2 ; jj++)
 				{
-					if(ii >= 0 
+
+					// cout<<i<<","<<j<<" "<<ii<<","<<jj<<endl;
+					if(	   ii >= 0 
 						&& ii < this->getH() 
 						&& jj >=0 
 						&& jj < this->getW() 
 						&& i != ii && j != jj 
-						&& (*areaofCase[i][j] != *areaofCase[ii][jj]) 
+						&& areaofCase[i][j]->getMyId() != areaofCase[ii][jj]->getMyId() 
 						&& 
-						(areaofCase[i][j]->getMean() - areaofCase[ii][jj]->getMean() < seuil) )
+						(abs(areaofCase[i][j]->getMean() - areaofCase[ii][jj]->getMean()) < seuil) )
 					{
+						cout<<endl;
+						cout<<"========================="<<i<<","<<j<<" and "<<ii<<","<<jj<<endl;
+						areaofCase[i][j]->showArea2D();
+						areaofCase[ii][jj]->showArea2D();
 
 						areaofCase[ii][jj]->voisinMerge->insert(std::pair<int, AbstractArea*> (areaofCase[i][j]->getMyId() , areaofCase[i][j]));
 
-						areaofCase[i][j]->voisinMerge->insert(std::pair<int , AbstractArea*>(areaofCase[i][j]->getMyId() , areaofCase[ii][jj]));
+						areaofCase[i][j]->voisinMerge->insert(std::pair<int , AbstractArea*>(areaofCase[ii][jj]->getMyId() , areaofCase[ii][jj]));
 					}
 				}
 			}
@@ -216,7 +222,19 @@ void Area::merge2D(double seuil)
 
 		}
 	}
+
 }
+ 
+// bool operator==(const Area &a1 , const Area &a2)
+// {
+//     return a1.getMyId() == a2.getMyId();
+// }
+
+
+// bool operator!=(const Area &a1 , const Area &a2)
+// {
+//     return ! (a1 == a2); 
+// }
 
 
 // void Area::gatherNeighbors(double seuil)

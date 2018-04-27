@@ -7,7 +7,7 @@
 #include "image_ppm.h"
 #include <iomanip>
 #include <map>
-
+#include <set>
 typedef unsigned char OCTET;
 using namespace std;
 
@@ -63,12 +63,13 @@ class AbstractArea
     virtual void standardDeviationCompute();
     virtual void conv1Dvers2D();
     virtual bool isHomogeneousArea();
-    
+    virtual int getMyId();
     virtual void split2D(double seuil)=0;
+    virtual void merge2DContinue( set <int>* alreadyMerged);
     void meanCompute2D();
     void varianceCompute2D();
     bool isHomogeneousArea2D(double seuil);
+    void setMean(float mean);
 };
-bool operator==(const AbstractArea &a1 , const AbstractArea &a2);
-bool operator!=(const AbstractArea &a1 , const AbstractArea &a2);
+
 #endif

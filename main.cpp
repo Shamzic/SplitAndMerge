@@ -79,11 +79,11 @@ int main(int argc, char* argv[])
     {
       Area::homogeneousAreas->at(i)->showArea2D();
     }
-    cout<<"Drawing splitted image"<<endl;
+    // cout<<"Drawing splitted image"<<endl;
     // =====================================
     for(unsigned int k = 0 ; k < Area::homogeneousAreas->size();  k++) 
     {
-      cout<<"Airehomogene "<<k<<endl;
+      // cout<<"Airehomogene "<<k<<endl;
       int icord = Area::homogeneousAreas->at(k)->getI(); // coordonées du coin haut gauche
       int jcord = Area::homogeneousAreas->at(k)->getJ(); // de l'aire homogène en cours de traitement
 
@@ -103,35 +103,30 @@ int main(int argc, char* argv[])
      
     }
     ecrire_image_pgm(cNomImgSplit, ImgOutSplit,  nH, nW);
-
-    // area->merge2D(40);
-    // cout<<"showing homogeneousAreas after merge2D"<<endl;
-    // for(unsigned int i = 0 ; i< Area::homogeneousAreas->size() ; i++)
-    // {
-    //   Area::homogeneousAreas->at(i)->showArea2D();
-    // }
+    cout<<endl<<"======================================"<<endl;
+    cout<<"start merge2D"<<endl;
+    area->merge2D(seuilMerge);
+    cout<<"======================================"<<endl;
+    cout<<"showing homogeneousAreas after merge2D"<<endl;
+    for(unsigned int i = 0 ; i< Area::homogeneousAreas->size() ; i++)
+    {
+      Area::homogeneousAreas->at(i)->showArea2D();
+    }
 
 
     // // =======================================
-    // for(int i = 0 ; i < nH ; i++)
-    // {
-    //   for(int j = 0 ; j < nW ; j++)
-    //   {
-    //     ImgOutMerge[j*nW + i] = area->data2D[i][j];
-    //   }
-    // }
+    for(int i = 0 ; i < nH ; i++)
+    {
+      for(int j = 0 ; j < nW ; j++)
+      {
+        ImgOutMerge[j*nW + i] = area->data2D[i][j];
+      }
+    }
     ecrire_image_pgm(cNomImgMerge, ImgOutMerge , nH , nW);
     free(ImgIn);
   }
 
-    // if(a_split_test_2->isHomogeneousArea() )
-    // {
-    //   cout<<"it is an HomogeneousArea"<<endl;    
-    // }
-
-    // a_split_test->split2D(1);
-    // cout<<"end split"<<endl;
-    
+ 
     // cout<<"showing area of cases"<<endl;
     
     // for (int i = 0 ; i < 4 ; i++)
@@ -144,14 +139,7 @@ int main(int argc, char* argv[])
     //   cout<<endl;
     // } 
     // cout<<endl;
-    // cout<<"showing homogeneousAreas"<<endl;
-    // for(unsigned int i = 0 ; i< Area::homogeneousAreas->size() ; i++)
-    // {
-    //   Area::homogeneousAreas->at(i)->showArea2D();
-
-
-
-
+  
 
   else if(argc == 1)
   {

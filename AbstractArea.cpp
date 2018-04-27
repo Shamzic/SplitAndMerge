@@ -51,7 +51,6 @@ void AbstractArea::showArea2D()
 {
    
     cout<<"id : "<<this->myId<<endl;;
-    cout<<"voisins merge ids :"<<endl;
     
     cout<<"Mean : "<<(float)this->getMean()<<endl;;
     cout<<"Variance : "<<(float)this->getVariance()<<endl;;
@@ -59,6 +58,7 @@ void AbstractArea::showArea2D()
 
     
     
+    cout<<"voisins merge ids :"<<endl;
     for(map<int,AbstractArea*>::iterator it = this->voisinMerge->begin(); it != this->voisinMerge->end(); ++it) 
     {
         cout<<it->first<< " ";
@@ -135,6 +135,11 @@ int AbstractArea::setH(int h)
 float AbstractArea::getMean() const
 {
     return this->mean;
+}
+
+void AbstractArea::setMean(float mean)
+{
+    this->mean = mean;
 } 
 
 float AbstractArea::getVariance() const
@@ -291,15 +296,31 @@ void AbstractArea::conv1Dvers2D()
 }
 
 
-bool operator==(const AbstractArea &a1 , const AbstractArea &a2)
+int AbstractArea::getMyId()
 {
-    return a1.getH() == a2.getH() &&
-           a1.getW() == a2.getW() &&
-           a1.getI() == a2.getI() &&
-           a1.getJ() == a2.getI();
+    return this->myId;    
 }
 
-bool operator!=(const AbstractArea &a1 , const AbstractArea &a2)
+
+
+void AbstractArea::merge2DContinue( set <int>* alreadyMerged)
 {
-    return ! (a1 == a2); 
+    alreadyMerged->insert(this->getMyId());
+    if(voisinMerge->size() == 0 )
+        return;
+
+    set<int>::iterator itam ;
+    for(map<int,AbstractArea*>::iterator it = this->voisinMerge->begin(); it != this->voisinMerge->end(); ++it) 
+    {
+        // cout<<it->first<< " ";
+        itam=alreadyMerged->find(it->second->getMyId());
+        if(itam != alreadyMerged->end())
+        {
+            it->second->setMean(this->getMean());
+            it->second->merge2DContinue(alreadyMerged);
+        }
+    }
+
+
 }
+

@@ -9,7 +9,7 @@
 #include <iostream>
 #include <iomanip>
 #include <map>
-
+#include <set>
 class Area : public AbstractArea
 { 
   protected:
@@ -38,6 +38,10 @@ class Area : public AbstractArea
     void merge2D(double seuil);
     virtual void split2D(double seuil);
     
+    
 };
+//TODO
+// bool operator==(const Area &a1 , const Area &a2);
+// bool operator!=(const Area &a1 , const Area &a2);
 
 #endif
